@@ -179,7 +179,8 @@ const showComplaint = async(req,res) =>{
             limit,
             startDate,
             endDate,
-            specificDate
+            specificDate,
+            assignEmployee
         } = req.query;
             let filters ={};
             if(saralId){
@@ -195,6 +196,7 @@ const showComplaint = async(req,res) =>{
             if (company) filters.company = {$regex : company, options :'i'}
             if (stage) filters.stage = stage;
             if(address) filters.address = { $regex : address , options : 'i'};
+            if(assignEmployee)filters.assignEmployee = new mongoose.Types.ObjectId(assignEmployee);
             if (specificDate) {
                 filters.created_At = {
                     $gte: await startDateConvertor(specificDate),
@@ -258,7 +260,6 @@ const showComplaint = async(req,res) =>{
                             updated_By:0
                         },
                         Stage:{
-                            _id:0,
                             __v:0,
                             created_By:0,
                             updated_By:0,

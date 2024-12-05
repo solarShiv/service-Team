@@ -5,7 +5,7 @@ const StageActivity = require('../../models/common/stageActivity.model');
 const updateComplaint  = async(req,res) =>{
     try {
         const empId = req.empId;
-        const {stageId, complaintId, assignEmployee, remark} = req.body;
+        const {stageId, complaintId, assignEmployee, priority, remark} = req.body;
         if(!stageId || !complaintId){
             return res.status(404).json({
                 success:false,
@@ -26,10 +26,15 @@ const updateComplaint  = async(req,res) =>{
         }
         const updateData = {
             stage:stageId,
-            assignEmployee
+            assignEmployee,
+            priority,
+            updated_By:empId,
+            updated_At:Date.now()
         }
+        console.log("UD",updateData)
         const insertResponse = await insertOne(StageActivity, data);
         const updateResponse = await update(Complaint, complaintId, updateData);
+        console.log(insertResponse , updateResponse)
         if(insertResponse && updateResponse) {
             return res.status(200).json({
                 success:true,

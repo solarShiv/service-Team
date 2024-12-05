@@ -1,25 +1,60 @@
 import React,{useState,useEffect} from 'react'
 import { useLocation } from 'react-router-dom';
 import {showData} from '../../Utils/APIs/commonShowAPI'
+import axios, { Axios } from 'axios'
 import CommonDropdownWithId from '../../Components/common/commonDropdownWithId'
+import { updateData } from '../../Utils/APIs/commonUpdateAPI';
+
 const Index = () => {
   const location = useLocation();
   const {id} = location.state || {};
   const [complaintData, setComplaintData] = useState({});
-  const [stage, setStage] =useState([]);
-  const [priority, setPriority] = useState();
-  
+  const [stage, setStage] =useState("");
+  const [priority, setPriority] = useState("");
+  const [fieldSalesList,setFieldSalesList] = useState([])
+  const [selectedEmployee, setSelectedEmployee] = useState("");
+  const [updateResponse, setUpdateResponse] = useState("");
+  const [ updateBtnClicked, setUpdateBtnClicked ] = useState(false);
     useEffect(() => {
-        showData(`farmer/showComplaint?complaintId=${id}`,setComplaintData);
-    }, []);
-
-
+        showData(`farmer/showComplaint?complaintId=${id}`,setComplaintData).then((status) => {
+          if(status){
+            setUpdateBtnClicked(false);
+          }
+        });
+    }, [updateBtnClicked]);
     const handleStageChange = (stage) =>{
       setStage(stage)
+      console.log(stage)
+    }
+    const updateValue ={
+      priority:(priority)? priority : complaintData[0]?.priority,
+      stageId:(stage) ? stage : complaintData[0]?.Stage[0]?._id,
+      complaintId:id,
+      assignEmployee:(selectedEmployee)?selectedEmployee : complaintData[0]?.assignEmployee
+    }
+    console.log("UV", updateValue)
+    useEffect(() => {
+      (async function fetchFieldSalesData() {
+        try {
+          const sendRequest = await axios.get(`http://88.222.214.93:5000/service-team/all-service-persons`);
+          console.log(sendRequest.data.allFieldServicePersons);
+          setFieldSalesList(sendRequest.data.allFieldServicePersons);
+        } catch (error) {
+          console.error(error);
+        }
+      })();
+    },[]);
+    const updateComplaint = (e) =>{
+      e.preventDefault();
+      updateData("service/updateComplaint", setUpdateResponse,updateValue).then((status) => {
+        if(status){
+          setUpdateBtnClicked(true);
+        }
+      });
     }
   return (
     <>
-      <div className=" flex flex-col bg-red-400">
+      <div className=" flex flex-col">
         <div>
           <h1 className=' text-3xl font-semibold tracking-widest text-center p-2 bg-gray-900 text-gray-100'>C<span className='text-lg'>OMPLAINT</span> D<span className='text-lg'>ETAILS</span></h1>
         </div>
@@ -28,7 +63,7 @@ const Index = () => {
           <h1 className=' text-2xl font-semibold  tracking-widest p-2'>S<span className='text-lg'>aral</span> I<span className='text-lg'>d - {complaintData[0]?.Farmer[0]?.saralId}</span></h1>
         </div>
         <div className=" flex flex-row justify-around p-1">
-          <div className='border-2'>
+          <div className='mt-3'>
             <table className='text-left'>
               <tr>
                 <th>Contact</th>
@@ -92,7 +127,7 @@ const Index = () => {
               </tr>
             </table>
           </div>
-          <div className='border-2'>
+          <div className='mt-3'>
           <table className='text-left'>
               <tr>
                 <th>Tracking Id</th>
@@ -112,41 +147,68 @@ const Index = () => {
               </tr>
               <tr>
                 <th>Priority</th>
-                <td>: {complaintData[0]?.priority}</td>
+                <td className={(complaintData[0]?.priority === 'Most Urgent')?'text-red-800':''}>: {complaintData[0]?.priority}</td>
               </tr>
               <tr>
                 <th>Company</th>
                 <td>: {complaintData[0]?.company}</td>
               </tr>
               <tr>
+                <th>Stage</th>
+                <td>: {complaintData[0]?.Stage[0]?.stage}</td>
+              </tr>
+              <tr>
+                <th>Assign Employee</th>
+                <td>: {complaintData[0]?.assignEmployee}</td>
+              </tr>
+              <tr>
                 <th>Complaint Date</th>
                 <td>: {complaintData[0]?.created_At}</td>
               </tr>
             </table>
-            <div className='bg-yellow-100 w-full'>
+            <div className='bg-yellow-100'>
               <h3 className='text-center bg-yellow-300 text-2xl'>C<span className='text-lg'>OMPLAINT</span> D<span className='text-lg'>ETAIL</span></h3>
               <span className='p-2'>{complaintData[0]?.complaintDetails}</span>
             </div>
           </div>
-          <div className='border-2 '>
-            <>
-              <div>
-                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PRIORITY<span className='text-red-500 fixed h-3'>*</span></label>
-                <select onChange={(e) => { setPriority(e.target.value) }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm block w-full p-2.5 " id="state-select">
-                  <option value="">-- select Priority --</option>
-                  <option key={1} value="Normal">Normal</option>
-                  <option key={1} value="Urgent">Urgent</option>
-                  <option key={1} value="Most Urgent">Most Urgent</option>
-                </select>
-                {/* {priorityError && <span className='text-red-500 text-xs ml-2'>Select Priority</span>} */}
-              </div>
-              <div>
-                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">STAGE<span className='text-red-500 fixed h-3'>*</span></label>
-                <CommonDropdownWithId Api_path={"common/showStage"} value={stage} onChange={handleStageChange} label={"Stage"} />
-
-                {/* {priorityError && <span className='text-red-500 text-xs ml-2'>Select Priority</span>} */}
-              </div>
-            </>
+          <div className='w-2/12'>
+            <form onSubmit={updateComplaint}>
+              <>
+                <div className='mt-3'>
+                  <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PRIORITY<span className='text-red-500 fixed h-3'>*</span></label>
+                  <select onChange={(e) => { setPriority(e.target.value) }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm block w-full p-2.5 " id="state-select">
+                    <option value="">-- select Priority --</option>
+                    <option key={1} value="Normal">Normal</option>
+                    <option key={1} value="Urgent">Urgent</option>
+                    <option key={1} value="Most Urgent">Most Urgent</option>
+                  </select>
+                  {/* {priorityError && <span className='text-red-500 text-xs ml-2'>Select Priority</span>} */}
+                </div>
+                <div className='mt-3'>
+                  <label for="first_name" class="block mt-3 mb-2 text-sm font-medium text-gray-900 dark:text-white">STAGE<span className='text-red-500 fixed h-3'>*</span></label>
+                  <CommonDropdownWithId Api_path={"common/showStage"} value={stage} onChange={handleStageChange} label={"Stage"} />
+                  {/* {priorityError && <span className='text-red-500 text-xs ml-2'>Select Priority</span>} */}
+                </div>
+                <div className='mt-3'>
+                  <label for="startDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Field Service<span className='text-red-500 fixed h-3'>*</span></label>
+                  <select
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    id="state-select"
+                    value={selectedEmployee}
+                    onChange={(e) => setSelectedEmployee(e.target.value)}
+                  >
+                    <option value="">-- Select Field Sales --</option>
+                    {fieldSalesList.map(({ _id, name }) => (
+                      <option key={_id} value={_id}>
+                        {name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <button type="submit" class="text-dark  mt-6 hover:bg-yellow-400 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center firstBgColor">Update</button>
+              </>
+            </form>
+            {updateResponse}
           </div>
         </div>
       </div>
