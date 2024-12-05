@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { useLocation } from 'react-router-dom';
 import {showData} from '../../Utils/APIs/commonShowAPI'
+import {CommonDropdownWithId} from '../../Components/common/commonDropdownWithId'
 const Index = () => {
   const location = useLocation();
   const {id} = location.state || {};
@@ -9,9 +10,12 @@ const Index = () => {
   const [priority, setPriority] = useState();
     useEffect(() => {
         showData(`farmer/showComplaint?complaintId=${id}`,setComplaintData);
-        showData(`common/showStage`, setStage);
-        console.log("jbgjikrbhjk",stage)
     }, []);
+
+
+    const handleStageChange = (stage) =>{
+      setStage(stage)
+    }
   return (
     <>
       <div className=" flex flex-col bg-red-400">
@@ -137,9 +141,8 @@ const Index = () => {
               </div>
               <div>
                 <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">STAGE<span className='text-red-500 fixed h-3'>*</span></label>
-                <select onChange={(e) => { setPriority(e.target.value) }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm block w-full p-2.5 " id="state-select">
-                  <option value="">-- select Priority --</option>
-                </select>
+                <CommonDropdownWithId Api_path={"common/showStage"} value={stage} onChange={handleStageChange} label={"Stage"} />
+
                 {/* {priorityError && <span className='text-red-500 text-xs ml-2'>Select Priority</span>} */}
               </div>
             </>
