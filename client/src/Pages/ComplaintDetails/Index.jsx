@@ -1,13 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import { useLocation } from 'react-router-dom';
 import {showData} from '../../Utils/APIs/commonShowAPI'
-import {CommonDropdownWithId} from '../../Components/common/commonDropdownWithId'
+import CommonDropdownWithId from '../../Components/common/commonDropdownWithId'
 const Index = () => {
   const location = useLocation();
   const {id} = location.state || {};
   const [complaintData, setComplaintData] = useState({});
   const [stage, setStage] =useState([]);
   const [priority, setPriority] = useState();
+  
     useEffect(() => {
         showData(`farmer/showComplaint?complaintId=${id}`,setComplaintData);
     }, []);

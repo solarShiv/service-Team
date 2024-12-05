@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { showData } from "../../Utils/APIs/commonShowAPI";
+
 const CommonDropdownWithId = ({ Api_path, value, onChange, label }) => {
   const [ListData, setListData] = useState([]);
   useEffect(() =>{
@@ -14,9 +15,9 @@ const CommonDropdownWithId = ({ Api_path, value, onChange, label }) => {
         onChange={(e) => onChange(e.target.value)}
       >
         <option value="">-- Select {label} --</option>
-        {ListData.length !== 0 && ListData.map(({_id,name, index}) =>(
-          <option key={index} value={_id}>
-            {name}
+        {ListData.length !== 0 && ListData.map(({_id, stage}) =>(
+          <option key={_id} value={_id}>
+            {stage}
           </option>
         ))}
       </select>
