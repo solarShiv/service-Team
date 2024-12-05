@@ -7,6 +7,7 @@ import ExcelUpload from '../../Pages/ExcelUpload/index.jsx'
 import ComplaintRegister from '../../Pages/ComplaintRegister/Index.jsx'
 import ComplaintList from '../../Pages/ComplaintList/Index.jsx'
 import ComplaintDetails from '../../Pages/ComplaintDetails/Index.jsx';
+import Report from '../../Pages/Report/index.jsx';
 const Index = () => {
   return (
     <Routes>
@@ -17,6 +18,7 @@ const Index = () => {
           <Route path='excelUpload' element ={<ExcelUpload/>} />
           <Route path="complaintList" element={<ComplaintList />} />
           <Route path="complaintDetails" element={<ComplaintDetails/>} />
+          <Route path="report" element={<Report/>} />
         </Route>
     </Routes>
   );

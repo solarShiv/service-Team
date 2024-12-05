@@ -54,6 +54,16 @@ const SideMenubar = () => {
                         <Link to="excelUpload">Excel Upload</Link>
                     </div>
                 </nav>
+                <nav class="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
+                    <div role="button"
+                        className="flex items-center border-b-2 secondBorderColor w-full">
+                        <div class="grid m-4 place-items-center">
+                            {/* icon */} 
+                            <FaFilePen  className='text-dark'/>
+                        </div>
+                        <Link to="report">Report</Link>
+                    </div>
+                </nav>
             </div>
         </>
     )

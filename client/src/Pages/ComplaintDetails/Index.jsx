@@ -5,10 +5,12 @@ const Index = () => {
   const location = useLocation();
   const {id} = location.state || {};
   const [complaintData, setComplaintData] = useState({});
+  const [stage, setStage] =useState([]);
   const [priority, setPriority] = useState();
     useEffect(() => {
-        showData(`farmer/showComplaint?complaintId=${id}`,setComplaintData)
-        console.log("jbgjikrbhjk",complaintData)
+        showData(`farmer/showComplaint?complaintId=${id}`,setComplaintData);
+        showData(`common/showStage`, setStage);
+        console.log("jbgjikrbhjk",stage)
     }, []);
   return (
     <>
