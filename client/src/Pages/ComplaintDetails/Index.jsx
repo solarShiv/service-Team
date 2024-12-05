@@ -8,7 +8,7 @@ const Index = () => {
   const [complaintData, setComplaintData] = useState({});
   const [stage, setStage] =useState([]);
   const [priority, setPriority] = useState();
-  
+
     useEffect(() => {
         showData(`farmer/showComplaint?complaintId=${id}`,setComplaintData);
     }, []);
@@ -128,7 +128,7 @@ const Index = () => {
               <span className='p-2'>{complaintData[0]?.complaintDetails}</span>
             </div>
           </div>
-          <div className='border-2 '>
+          <div className='border-2'>
             <>
               <div>
                 <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PRIORITY<span className='text-red-500 fixed h-3'>*</span></label>
@@ -141,7 +141,7 @@ const Index = () => {
                 {/* {priorityError && <span className='text-red-500 text-xs ml-2'>Select Priority</span>} */}
               </div>
               <div>
-                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">STAGE<span className='text-red-500 fixed h-3'>*</span></label>
+                <label for="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">STAGE<span className='text-red-500 fixed h-3'>*</span></label>
                 <CommonDropdownWithId Api_path={"common/showStage"} value={stage} onChange={handleStageChange} label={"Stage"} />
 
                 {/* {priorityError && <span className='text-red-500 text-xs ml-2'>Select Priority</span>} */}
