@@ -1,9 +1,11 @@
 import React,{useState,useEffect} from 'react'
 import { useLocation } from 'react-router-dom';
 import {showData} from '../../Utils/APIs/commonShowAPI'
-import axios, { Axios } from 'axios'
+import axios from 'axios'
 import CommonDropdownWithId from '../../Components/common/commonDropdownWithId'
 import { updateData } from '../../Utils/APIs/commonUpdateAPI';
+import { externalDataFetch } from '../../Utils/APIs/externalDataFetchAPI';
+
 
 const Index = () => {
   const location = useLocation();
@@ -14,14 +16,23 @@ const Index = () => {
   const [fieldSalesList,setFieldSalesList] = useState([])
   const [selectedEmployee, setSelectedEmployee] = useState("");
   const [updateResponse, setUpdateResponse] = useState("");
+  const [externalServicePerson, setExternalServicePerson] = useState([]);
   const [ updateBtnClicked, setUpdateBtnClicked ] = useState(false);
     useEffect(() => {
         showData(`farmer/showComplaint?complaintId=${id}`,setComplaintData).then((status) => {
           if(status){
+            console.log(status);
+            externalDataFetch(`http://88.222.214.93:5000/service-team/find-service-person?id=${status[0].assignEmployee}`,setExternalServicePerson);
             setUpdateBtnClicked(false);
+            console.log("jkdfhjikhk",externalServicePerson)
           }
         });
+        console.log("ESP")
     }, [updateBtnClicked]);
+
+    useEffect(() => {
+
+    }, [])
     const handleStageChange = (stage) =>{
       setStage(stage)
       console.log(stage)
@@ -37,8 +48,8 @@ const Index = () => {
       (async function fetchFieldSalesData() {
         try {
           const sendRequest = await axios.get(`http://88.222.214.93:5000/service-team/all-service-persons`);
-          console.log(sendRequest.data.allFieldServicePersons);
-          setFieldSalesList(sendRequest.data.allFieldServicePersons);
+          console.log("FService",sendRequest.data.data);
+          setFieldSalesList(sendRequest.data.data);
         } catch (error) {
           console.error(error);
         }
@@ -159,7 +170,7 @@ const Index = () => {
               </tr>
               <tr>
                 <th>Assign Employee</th>
-                <td>: {complaintData[0]?.assignEmployee}</td>
+                <td>: {externalServicePerson.name}</td>
               </tr>
               <tr>
                 <th>Complaint Date</th>
@@ -198,7 +209,7 @@ const Index = () => {
                     onChange={(e) => setSelectedEmployee(e.target.value)}
                   >
                     <option value="">-- Select Field Sales --</option>
-                    {fieldSalesList.map(({ _id, name }) => (
+                    {fieldSalesList?.map(({ _id, name }) => (
                       <option key={_id} value={_id}>
                         {name}
                       </option>
