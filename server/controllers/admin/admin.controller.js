@@ -134,17 +134,18 @@ const reportDownLoad = async(req,res) =>{
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         );
         res.send(buffer);
-        return res.status(200).json({
-            success:true,
-            message:'repoart download successfully',
-            data:formatedData
-        })
+        // return res.status(200).json({
+        //     success:true,
+        //     message:'repoart download successfully',
+        //     data:formatedData
+        // })
     } catch (error) {
         console.log(error)
-        return res.status(400).json({
-            success:false,
-            message:'Something is wrong please try again.'
-        })
+        
+        // return res.status(400).json({
+        //     success:false,
+        //     message:'Something is wrong please try again.'
+        // })
     }
 }
 module.exports ={
