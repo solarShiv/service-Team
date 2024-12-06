@@ -177,7 +177,7 @@ const Index = () => {
                 <td>: {complaintData[0]?.created_At}</td>
               </tr>
             </table>
-            <div className='bg-yellow-100'>
+            <div className='bg-gray-200'>
               <h3 className='text-center bg-yellow-300 text-2xl'>C<span className='text-lg'>OMPLAINT</span> D<span className='text-lg'>ETAIL</span></h3>
               <span className='p-2'>{complaintData[0]?.complaintDetails}</span>
             </div>
