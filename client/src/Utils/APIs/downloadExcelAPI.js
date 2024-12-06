@@ -3,7 +3,7 @@ import axios from "axios";
 export const downloadReport = async( formParams ) => {
     try{
         // console.log("JSON-DATA", jsonData);
-        const sendRequest = await axios.get(`${process.env.REACT_APP_API_URL}/admin/repoartDownload`, formParams, {
+        const sendRequest = await axios.get(`${process.env.REACT_APP_API_URL}/admin/reportDownload?stageId=${formParams.stageId}&assignEmployee=${formParams.assignEmployee}&startDate=${formParams.startDate}&endDate=${formParams.endDate}`, {
             headers: {
                 "Content-Type" : "application/json"
             },
