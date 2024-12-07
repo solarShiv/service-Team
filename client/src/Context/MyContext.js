@@ -41,6 +41,7 @@ export const AuthProvider = ({children}) => {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/logout`);
             console.log(response.data.success);
             removeCookie('token');
+            removeCookie('empData');
             Navigate('/');
             return true;
         }catch(error){
