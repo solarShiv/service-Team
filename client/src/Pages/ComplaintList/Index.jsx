@@ -14,7 +14,7 @@ const Index = () => {
     }, [page]);
 
     const updateComplaint =(e,id) =>{
-        setComplaintId(id)
+        setComplaintId(id);
         const complaintId = {id:id};
         // navigate('/dashboard/complaintDetails',{state:complaintId});
         navigate('/dashboard/verifyComlaint',{state:complaintId});
