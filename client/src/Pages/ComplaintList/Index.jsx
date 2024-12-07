@@ -24,7 +24,8 @@ const Index = () => {
     const updateComplaint =(e,id) =>{
         setComplaintId(id)
         const complaintId = {id:id};
-        navigate('/dashboard/complaintDetails',{state:complaintId});
+        // navigate('/dashboard/complaintDetails',{state:complaintId});
+        navigate('/dashboard/verifyComlaint',{state:complaintId});
         
     }
     return (
@@ -64,7 +65,7 @@ const Index = () => {
                         complaintData.map((data , index) =>(
                             <>
                                 <tr className="bg-white border-b hover:bg-gray-400 hover:text-gray-900"  onClick={(e)=>{updateComplaint(e,data._id)} }>
-                                    <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <th scope="row" className="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {(SrNo++) + ((page - 1) * LIMIT)}
                                     </th>
                                     <th scope="row" className="px-2 font-medium text-center text-gray-900 whitespace-nowrap ">
@@ -107,7 +108,7 @@ const Index = () => {
                                     </td>
                                     <td className="px-2 text-center">
                                         {data.Farmer[0].pin}
-                                    </td><td class="px-2 text-center">
+                                    </td><td className="px-2 text-center">
                                         {data.Farmer[0].HP}
                                     </td>
 

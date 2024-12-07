@@ -5,24 +5,14 @@ import axios from 'axios'
 import CommonDropdownWithId from '../../Components/common/commonDropdownWithId'
 import { updateData } from '../../Utils/APIs/commonUpdateAPI';
 import { externalDataFetch } from '../../Utils/APIs/externalDataFetchAPI';
-import { useNavigate } from 'react-router-dom';
-import { getCookie } from '../../Utils/cookies';
+
 
 const Index = () => {
-  const Navigate = useNavigate();
-  useEffect(() => {
-      const token = getCookie('token');
-      if(!token){
-        Navigate('/');
-      } 
-    }, []);
   const location = useLocation();
   const {id} = location.state || {};
   const [complaintData, setComplaintData] = useState({});
-  const [stage, setStage] =useState("");
-  const [priority, setPriority] = useState("");
-  const [fieldSalesList,setFieldSalesList] = useState([])
-  const [selectedEmployee, setSelectedEmployee] = useState("");
+  const [verify, setVerify] = useState("");
+  const [callingVerifyRemark ,setCallingVerifyRemark] = useState("");
   const [updateResponse, setUpdateResponse] = useState("");
   const [externalServicePerson, setExternalServicePerson] = useState([]);
   const [ updateBtnClicked, setUpdateBtnClicked ] = useState(false);
@@ -35,36 +25,14 @@ const Index = () => {
             console.log("jkdfhjikhk",externalServicePerson)
           }
         });
-        console.log("ESP")
     }, [updateBtnClicked]);
-
-    useEffect(() => {
-
-    }, [])
-    const handleStageChange = (stage) =>{
-      setStage(stage)
-      console.log(stage)
-    }
     const updateValue ={
-      priority:(priority)? priority : complaintData[0]?.priority,
-      stageId:(stage) ? stage : complaintData[0]?.Stage[0]?._id,
-      complaintId:id,
-      assignEmployee:(selectedEmployee)?selectedEmployee : complaintData[0]?.assignEmployee
+      verify,
+      callingVerifyRemark
     }
-    console.log("UV", updateValue)
-    useEffect(() => {
-      (async function fetchFieldSalesData() {
-        try {
-          const sendRequest = await axios.get(`http://88.222.214.93:5000/service-team/all-service-persons`);
-          console.log("FService",sendRequest.data.data);
-          setFieldSalesList(sendRequest.data.data);
-        } catch (error) {
-          console.error(error);
-        }
-      })();
-    },[]);
     const updateComplaint = (e) =>{
       e.preventDefault();
+      // continue work 
       updateData("service/updateComplaint", setUpdateResponse,updateValue).then((status) => {
         if(status){
           setUpdateBtnClicked(true);
@@ -194,37 +162,19 @@ const Index = () => {
             <form onSubmit={updateComplaint}>
               <>
                 <div className='mt-3'>
-                  <label for="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PRIORITY<span className='text-red-500 fixed h-3'>*</span></label>
-                  <select onChange={(e) => { setPriority(e.target.value) }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm block w-full p-2.5 " id="state-select">
+                  <label for="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Farmer Certified<span className='text-red-500 fixed h-3'>*</span></label>
+                  <select onChange={(e) => { setVerify(e.target.value) }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm block w-full p-2.5 " id="state-select">
                     <option value="">-- select Priority --</option>
-                    <option key={1} value="Normal">Normal</option>
-                    <option key={1} value="Urgent">Urgent</option>
-                    <option key={1} value="Most Urgent">Most Urgent</option>
+                    <option key={1} value="Yes">Yes</option>
+                    <option key={1} value="No">No</option>
                   </select>
                   {/* {priorityError && <span className='text-red-500 text-xs ml-2'>Select Priority</span>} */}
                 </div>
-                <div className='mt-3'>
-                  <label for="first_name" className="block mt-3 mb-2 text-sm font-medium text-gray-900 dark:text-white">STAGE<span className='text-red-500 fixed h-3'>*</span></label>
-                  <CommonDropdownWithId Api_path={"common/showStage"} value={stage} onChange={handleStageChange} label={"Stage"} />
-                  {/* {priorityError && <span className='text-red-500 text-xs ml-2'>Select Priority</span>} */}
+                <div>
+                  <label for="message" className="block mt-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">Remark</label>
+                  <textarea id="message" onChange={(e) => { setCallingVerifyRemark(e.target.value) }} rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 " placeholder="Write your thoughts here..."></textarea>
                 </div>
-                <div className='mt-3'>
-                  <label for="startDate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Field Service<span className='text-red-500 fixed h-3'>*</span></label>
-                  <select
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    id="state-select"
-                    value={selectedEmployee}
-                    onChange={(e) => setSelectedEmployee(e.target.value)}
-                  >
-                    <option value="">-- Select Field Sales --</option>
-                    {fieldSalesList?.map(({ _id, name }) => (
-                      <option key={_id} value={_id}>
-                        {name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <button type="submit" className="text-dark  mt-6 hover:bg-yellow-400 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center firstBgColor">Update</button>
+                <button type="submit" className="text-dark  mt-6 hover:bg-yellow-400 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center firstBgColor">Save</button>
               </>
             </form>
             {updateResponse}

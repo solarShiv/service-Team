@@ -53,13 +53,13 @@ const Index = () => {
         </div>
         <div className="formField">
         <form onSubmit={handleSubmit} >
-          <div class="grid gap-3 m-6 md:grid-cols-4">
+          <div className="grid gap-3 m-6 md:grid-cols-4">
             <div>
-              <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose File<span className='text-red-500 fixed h-3'>*</span></label>
+              <label for="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose File<span className='text-red-500 fixed h-3'>*</span></label>
               <input type="file" onChange={handleFileChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm block w-full p-2 dark:bg-gray-700 "/>
             </div>
             <div>
-              <button type="submit" disabled={isUploading} class="text-dark mt-8 bg-yellow-500 ml-6 hover:bg-yellow-400 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center" onChange={handleFileChange}>
+              <button type="submit" disabled={isUploading} className="text-dark mt-8 bg-yellow-500 ml-6 hover:bg-yellow-400 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center" onChange={handleFileChange}>
                 {isUploading ? 'Uploading...' : 'Upload'}
               </button>
             </div>
