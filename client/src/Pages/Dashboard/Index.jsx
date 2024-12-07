@@ -2,7 +2,18 @@ import React from 'react'
 import Menubar from '../../Components/menu';
 import SideMenubar from '../../Components/SideMenubar.jsx';
 import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { getCookie } from '../../Utils/cookies.js';
+import { useNavigate } from 'react-router-dom';
+
 const Index = () => {
+  const Navigate = useNavigate();
+  useEffect(() => {
+      const token = getCookie('token');
+      if(!token){
+        Navigate('/');
+      } 
+    }, []);
   return (
     <>
      <div className="outer h-full overflow-y-hidden" >

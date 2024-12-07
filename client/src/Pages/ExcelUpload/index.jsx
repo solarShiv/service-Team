@@ -1,6 +1,17 @@
 import React,{useState} from 'react';
+import { useEffect } from 'react';
+import { getCookie } from '../../Utils/cookies';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
 const Index = () => {
+  const Navigate = useNavigate();
+  useEffect(() => {
+      const token = getCookie('token');
+      if(!token){
+        Navigate('/');
+      } 
+    }, []);
   const [isUploading, setIsUploading] = useState(false);
   const [message, setMessage] = useState('');
   const [file, setFile] = useState()

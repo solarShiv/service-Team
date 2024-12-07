@@ -1,8 +1,16 @@
 import React,{useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import {showData} from '../../Utils/APIs/commonShowAPI'
+import { getCookie } from '../../Utils/cookies';
 const Index = () => {
     const navigate = useNavigate();
+    const Navigate = useNavigate();
+    useEffect(() => {
+        const token = getCookie('token');
+        if(!token){
+          Navigate('/');
+        } 
+      }, []);
     const LIMIT = 13;
     var SrNo = 1;
     const [page, setPage] = useState(1);

@@ -5,9 +5,17 @@ import axios from 'axios'
 import CommonDropdownWithId from '../../Components/common/commonDropdownWithId'
 import { updateData } from '../../Utils/APIs/commonUpdateAPI';
 import { externalDataFetch } from '../../Utils/APIs/externalDataFetchAPI';
-
+import { useNavigate } from 'react-router-dom';
+import { getCookie } from '../../Utils/cookies';
 
 const Index = () => {
+  const Navigate = useNavigate();
+  useEffect(() => {
+      const token = getCookie('token');
+      if(!token){
+        Navigate('/');
+      } 
+    }, []);
   const location = useLocation();
   const {id} = location.state || {};
   const [complaintData, setComplaintData] = useState({});
