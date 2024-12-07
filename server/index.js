@@ -12,7 +12,7 @@ require("./configs/db/mongoConn")
 const app = express();
 app.use(cookieParser());
 app.use(cors({
-  // origin: 'http://localhost:3000', // Replace with your React Native app's URL
+  origin: 'http://88.222.214.93:3001', // Replace with your React Native app's URL
   origin: true,
   credentials: true // Allow cookies  
 }));
