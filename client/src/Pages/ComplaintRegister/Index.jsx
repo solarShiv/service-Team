@@ -1,8 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useEffect } from 'react';
 import {checkSaralIdIsExist} from '../../Utils/APIs/checkSaralIdIsExistAPI.js';
 import { insertData } from '../../Utils/APIs/commonInsertAPI.js';
 import CommonDropdown from '../../Components/common/commonDropdown.js';
+import { getCookie } from '../../Utils/cookies.js';
+import { useNavigate } from 'react-router-dom';
+
 const Index = () => {
+    const Navigate = useNavigate();
+    useEffect(() => {
+        const token = getCookie('token');
+        if(!token){
+          Navigate('/');
+        } 
+      }, []);
     const [farmerDetails, setFarmerDetails] = useState({});
     const [farmerExist, setFarmerExist] = useState(false);
     const [responseMessage, setResponseMessage] = useState("");

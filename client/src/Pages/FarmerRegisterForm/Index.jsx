@@ -6,8 +6,17 @@ import { departmentListApi }  from '../../Utils/APIs/departmentAPI.js';
 import { ProductListAPI } from '../../Utils/APIs/productListAPI.js'
 import DepartmentSelect from '../../Components/common/departmentList.js';
 import ProductSelect from '../../Components/common/productList.js'; 
+import { getCookie } from '../../Utils/cookies.js';
+import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
+    const Navigate = useNavigate();
+    useEffect(() => {
+        const token = getCookie('token');
+        if(!token){
+          Navigate('/');
+        } 
+      }, []);
     const [saralId, setSaralId] = useState("");
     const [farmer, setFarmer] = useState("");
     const [father,setFather] = useState("");

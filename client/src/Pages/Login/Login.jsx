@@ -1,7 +1,20 @@
-import { useState} from 'react'
+import { useEffect, useState} from 'react'
 import { useAuth } from '../../Context/MyContext';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { getCookie } from '../../Utils/cookies';
+
 const Login = () => {
+  const Navigate = useNavigate();
+  const { setEmpData } = useAuth();
+  useEffect(() => {
+    const token = getCookie('token');
+    if(token){
+      const getEmpData = getCookie('empData');
+      setEmpData(JSON.parse(getEmpData));
+      Navigate('/dashboard');
+    } 
+  }, []);
+  
   const {loginAPI} = useAuth();
   const [empIdOrMobile, setEmpIdOrMobile] = useState("");
   const [password,setPassword] = useState("");

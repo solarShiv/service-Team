@@ -1,3 +1,5 @@
+import React from 'react';
+import { useState } from 'react';
 import { Disclosure, DisclosureButton, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useAuth } from '../Context/MyContext';
@@ -5,8 +7,9 @@ import galoLogo from '../Assets/Images/galo_solar_logo.png'
 
 
 export default function Menubar() {
-    const {empData} = useAuth();
-    console.log(empData)
+    const {empData, logoutAPI} = useAuth();
+    console.log(empData);
+    const [error, setError ] = useState();
   return (
     <Disclosure as="nav" className="bg-gray-200 border border-collapse">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -66,6 +69,7 @@ export default function Menubar() {
                   <a
                     href="#egr"
                     className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
+                    onClick={() => logoutAPI(setError)}
                   >
                     Sign out
                   </a>
