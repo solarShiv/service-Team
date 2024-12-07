@@ -5,7 +5,7 @@ const generateAccessToken = require('../../helpers/token/accessToken');
 const generateRefreshToken = require('../../helpers/token/refreshToken');
 const convertToUpperCase = require('../../helpers/common/convertToUpperCase');
 const register = async(req,res) =>{
-    const empId = req.empId;
+    const empIdz = req.empId;
     try {
         const errors = validationResult(req);
         if(!errors.isEmpty()){
@@ -32,7 +32,7 @@ const register = async(req,res) =>{
             mobile,
             password :hashedPassword,
             role:department,
-            created_By:empId
+            created_By:empIdz
         });
         const savedRegister = await newRegister.save();
         return res.status(200).json({
