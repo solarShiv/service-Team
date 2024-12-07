@@ -25,7 +25,7 @@ const employeeSchema = mongoose.Schema({
     },
     role:{
         type:String,
-        enum:['Admin', 'Service','Warehouse'],
+        enum:['Admin', 'Service','Calling','Tollfree'],
         required:true
     },
     created_At:{
