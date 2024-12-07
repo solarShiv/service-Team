@@ -11,11 +11,22 @@ const farmerRouter = require('./routers/farmer.router');
 require("./configs/db/mongoConn")
 const app = express();
 app.use(cookieParser());
-app.use(cors({
-  origin: 'http://88.222.214.93:3001', // Replace with your React Native app's URL
-  origin: true,
-  credentials: true // Allow cookies  
-}));
+const allowedOrigins = [
+  'http://88.222.214.93:3001',
+];
+
+// CORS configuration
+const corsOptions = {
+  origin: function (origin, callback) {
+      if (allowedOrigins.includes(origin) || !origin) {
+          callback(null, true);
+      } else {
+          callback(new Error('Not allowed by CORS'));
+      }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'] // Allow specific HTTP methods
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended:true}));
 
