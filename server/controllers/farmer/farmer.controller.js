@@ -8,7 +8,7 @@ const Complaint = require('../../models/farmer/complaint.model');
 const startDateConvertor = require("../../helpers/common/dateConversion/startDate");
 const endDateConvertor = require('../../helpers/common/dateConversion/endDate');
 const mongoose = require('mongoose');
-const update = require('../../utils/common/update');
+const update = require('../../utils/common/mongoose/update');
 const addFarmerByExcel = async(req,res) =>{
     try {
         const JSON_Data = await excelToJSON(req.file.buffer);

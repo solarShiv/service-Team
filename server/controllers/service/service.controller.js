@@ -1,4 +1,4 @@
-const update = require('../../utils/common/update');
+const update = require('../../utils/common/mongoose/update');
 const insertOne = require('../../utils/common/mongoose/insertOne');
 const Complaint = require('../../models/farmer/complaint.model');
 const StageActivity = require('../../models/common/stageActivity.model');
