@@ -27,7 +27,7 @@ const Index = () => {
     const updateComplaint =(e, id) => {
         setComplaintId(id);
         const complaintId = {id: id};
-        if(empData?.role === "Service"){
+        if( empData?.role === "Admin" || empData?.role === "Service"){
             navigate('/dashboard/complaintDetails',{state: complaintId});
         }
         else{
