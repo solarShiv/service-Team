@@ -27,7 +27,11 @@ const Index = () => {
     const updateComplaint =(e, id) => {
         setComplaintId(id);
         const complaintId = {id: id};
-        if( empData?.role === "Admin" || empData?.role === "Service"){
+        if(empData?.role === "Admin"){
+            console.log("Hello welcome");
+            navigate('/complaintList', { state: complaintId});
+        }
+        else if( empData?.role === "Service"){
             navigate('/dashboard/complaintDetails',{state: complaintId});
         }
         else{
@@ -98,31 +102,31 @@ const Index = () => {
                                         </div>
                                     </td>
                                     <td className="px-2 text-center">
-                                        {data.Farmer[0].saralId}
+                                        {data?.Farmer[0]?.saralId}
                                     </td>
                                     <td className="px-2 text-center">
-                                        {data.Farmer[0].farmerName}
+                                        {data?.Farmer[0]?.farmerName}
                                     </td>
                                     <td className="px-2 text-center">
-                                        {data.Farmer[0].contact}
+                                        {data?.Farmer[0]?.contact}
                                     </td>
                                     <td className="px-2 text-center">
-                                        {data.Farmer[0].state}
+                                        {data?.Farmer[0]?.state}
                                     </td>
                                     <td className="px-2 text-center">
-                                        {data.Farmer[0].district}
+                                        {data?.Farmer[0]?.district}
                                     </td>
                                     <td className="px-2 text-center">
-                                        {data.Farmer[0].pin}
+                                        {data?.Farmer[0]?.pin}
                                     </td><td className="px-2 text-center">
-                                        {data.Farmer[0].HP}
+                                        {data?.Farmer[0]?.HP}
                                     </td>
 
                                     <td className="px-2">
-                                        {data.Stage[0].stage}
+                                        {data?.Stage[0]?.stage}
                                     </td>
                                     <td className="px-2">
-                                        {data.Employee[0].name}
+                                        {data?.Employee[0]?.name}
                                     </td>
                                 </tr>
                             </>
