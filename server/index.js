@@ -34,16 +34,16 @@ app.use(cors(corsOptions));
 //   origin: true,
 //   credentials: true
 // }));
-app.use(cors({
-  origin: '*', // Allow requests from this origin
-  methods: 'GET,HEAD,PUT,PATCH,POST', // Allow all HTTP methods
-  allowedHeaders: '*', // Allow all headers
-  credentials: true // Allow cookies and credentials if required
-}));
-app.use(cors({
-  origin: true,
-  credentials: true
-}));
+// app.use(cors({
+//   origin: '*', // Allow requests from this origin
+//   methods: 'GET,HEAD,PUT,PATCH,POST', // Allow all HTTP methods
+//   allowedHeaders: '*', // Allow all headers
+//   credentials: true // Allow cookies and credentials if required
+// }));
+// app.use(cors({
+//   origin: true,
+//   credentials: true
+// }));
 app.use(express.json());
 app.use(express.urlencoded({ extended:true}));
 
