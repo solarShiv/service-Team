@@ -28,7 +28,7 @@ export const AuthProvider = ({children}) => {
             if (error.response) {
               setError(error.response.data.message || "Login failed. Please try again.");
             } else {
-              setError(error);
+              setError("An error occurred. Please try again later. ");
             }
             return false;
           } finally {
