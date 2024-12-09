@@ -12,7 +12,8 @@ const Index = () => {
         } 
       }, []);
     
-    const empData = getCookie('empData');
+    const empData = JSON.parse(getCookie('empData'));
+    console.log(empData);
     const LIMIT = 13;
     var SrNo = 1;
     const [page, setPage] = useState(1);
