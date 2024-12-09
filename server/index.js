@@ -13,7 +13,7 @@ const app = express();
 app.use(cookieParser());
 const allowedOrigins = [
   'http://88.222.214.93:3001',
-  'https://account-project.netlify.app'
+  'http://localhost:3000',
 ];
 
 // CORS configuration
