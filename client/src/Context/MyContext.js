@@ -13,6 +13,7 @@ export const AuthProvider = ({children}) => {
     const Navigate = useNavigate();
     const loginAPI = async(loginData , setError, setLoading) =>{
         try {
+          console.log(process.env.REACT_APP_API_URL)
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, loginData);
             console.log(response.data);
             if(response.data.success){
