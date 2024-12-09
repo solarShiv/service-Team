@@ -11,35 +11,28 @@ const farmerRouter = require('./routers/farmer.router');
 require("./configs/db/mongoConn")
 const app = express();
 app.use(cookieParser());
-// const allowedOrigins = [
-//   'http://88.222.214.93:3001',
-// ];
-
-// // CORS configuration
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//       if (allowedOrigins.includes(origin) || !origin) {
-//           callback(null, true);
-//       } else {
-//           callback(new Error('Not allowed by CORS'));
-//       }
-//   },
-//   methods: ['GET', 'POST', 'PUT', 'DELETE'] // Allow specific HTTP methods
-// };
-//app.use(cors(corsOptions));
-app.use(cors({
-  origin: true,
-  credentials: true
-}));
-// app.use(cors({
-//   origin: '*', // Allow requests from this origin
-//   methods: 'GET,HEAD,PUT,PATCH,POST', // Allow all HTTP methods
-//   allowedHeaders: '*', // Allow all headers
-//   credentials: true // Allow cookies and credentials if required
-// }));
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  next();
+});
+const allowedOrigins = [
+  'http://88.222.214.93:3001',
+  'http://localhost:3000', // Optional for local testing
+];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific methods
+  credentials: true, // Allow cookies if needed
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended:true}));
-
 app.use("/auth", authRouter);
 app.use("/admin", adminRouter);
 app.use("/service", serviceRouter);

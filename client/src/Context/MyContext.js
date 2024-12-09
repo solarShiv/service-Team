@@ -14,7 +14,8 @@ export const AuthProvider = ({children}) => {
     const loginAPI = async(loginData , setError, setLoading) => {
       console.log(process.env.REACT_APP_API_URL);
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, loginData);
+          console.log(process.env.REACT_APP_API_URL)
+            const response = await axios.post(`http://88.222.214.93:8001/auth/login`, loginData);
             console.log(response.data);
             const { token } = response.data;
             setCookie('token', token, {expires: 0.5, secure: false });
@@ -27,7 +28,7 @@ export const AuthProvider = ({children}) => {
             if (error.response) {
               setError(error.response.data.message || "Login failed. Please try again.");
             } else {
-              setError("An error occurred. Please try again later.");
+              setError("An error occurred. Please try again later. ");
             }
             return false;
           } finally {
