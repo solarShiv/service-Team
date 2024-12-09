@@ -31,7 +31,7 @@ const Index = () => {
             navigate('/dashboard/complaintDetails',{state: complaintId});
         }
         else{
-            navigate('/dashboard/verifyComlaint',{state: complaintId});
+            navigate('/dashboard/verifyComplaint',{state: complaintId});
         }
     }
     return (
