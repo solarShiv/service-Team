@@ -12,7 +12,7 @@ require("./configs/db/mongoConn")
 const app = express();
 app.use(cookieParser());
 const allowedOrigins = [
-  'http://88.222.214.93:3000',
+  'http://88.222.214.93:3001',
   'https://account-project.netlify.app'
 ];
 
