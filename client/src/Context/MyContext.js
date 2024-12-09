@@ -14,7 +14,7 @@ export const AuthProvider = ({children}) => {
     const loginAPI = async(loginData , setError, setLoading) =>{
         try {
           console.log(process.env.REACT_APP_API_URL)
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, loginData);
+            const response = await axios.post(`http://88.222.214.93:8001/auth/login`, loginData);
             console.log(response.data);
             if(response.data.success){
               const { token } = response.data;
