@@ -59,7 +59,6 @@ const Index = () => {
     useEffect(()=>{
         if(departmentId !== "") ProductListAPI(departmentId, setProductList);
     },[departmentId]);
-    const [project, setProject] = useState("");
     const [block, setBlock] = useState("");
     const [gramPanchayat, setGramPanchayat] = useState("");
     const [village, setVillage] = useState("");
@@ -110,10 +109,6 @@ const Index = () => {
                           <div>
                               <label for="department" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product<span className='text-red-500 fixed h-3'>*</span></label>
                               <ProductSelect  productListData={productList} value={product} onChange={handleProductChange} />
-                          </div>
-                          <div>
-                              <label for="department" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Project<span className='text-red-500 fixed h-3'>*</span></label>
-                              {/* <ProjectSelect  departmentListData={departmentList} value={department} onChange={handleDepartmentChange} /> */}
                           </div>
                           <div>
                               <label for="block" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Block<span className='text-red-500 fixed h-3'>*</span></label>

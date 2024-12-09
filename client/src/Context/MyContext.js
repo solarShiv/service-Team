@@ -11,17 +11,16 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({children}) => {
     const [empData, setEmpData] = useState();
     const Navigate = useNavigate();
-    const loginAPI = async(loginData , setError, setLoading) =>{
+    const loginAPI = async(loginData , setError, setLoading) => {
+      console.log(process.env.REACT_APP_API_URL);
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, loginData);
             console.log(response.data);
-            if(response.data.success){
-              const { token } = response.data;
-              setCookie('token', token, {expires: 0.5, secure: false });
-              setCookie('empData', JSON.stringify(response.data.data));
-              setEmpData(response.data.data);
-              Navigate('/dashboard');
-            }
+            const { token } = response.data;
+            setCookie('token', token, {expires: 0.5, secure: false });
+            setCookie('empData', JSON.stringify(response.data.data));
+            setEmpData(response.data.data);
+            Navigate('/dashboard');
             return true;
           } catch (error) {
             console.log("login error",error)
@@ -38,8 +37,8 @@ export const AuthProvider = ({children}) => {
     }
     const logoutAPI = async(setError) => {
         try{
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/logout`);
-            console.log(response.data.success);
+            // const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/logout`);
+            // console.log(response.data.success);
             removeCookie('token');
             removeCookie('empData');
             Navigate('/');

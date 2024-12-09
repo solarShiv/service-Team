@@ -1,10 +1,18 @@
 import React from 'react'
-import { useAuth } from '../Context/MyContext';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaFilePen } from "react-icons/fa6";
 import { GiFarmer } from "react-icons/gi";
+import { getCookie } from '../Utils/cookies';
+
 const SideMenubar = () => {
-    const {empData} = useAuth();
+    const [empData, setEmpData] = useState(JSON.parse(getCookie('empData')));
+    useEffect(() => {
+        const data = JSON.parse(getCookie('empData'));
+        setEmpData(data);
+        console.log("Data: ",data);
+    }, [])
+    console.log(empData);
     return (
         <>
             <div
@@ -14,7 +22,7 @@ const SideMenubar = () => {
                         Dashboard
                     </h5>
                 </div>
-                <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
+                { empData?.role === "Admin" && <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
                     <div role="button"
                         className="flex items-center border-b-2 secondBorderColor w-full">
                         <div className="grid m-4 place-items-center">
@@ -23,8 +31,8 @@ const SideMenubar = () => {
                         </div>
                         <Link to="employeeRegister">Employee Register</Link>
                     </div>
-                </nav>
-                <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
+                </nav>}
+                { (empData?.role === "Admin" || empData?.role === "Tollfree") && <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
                     <div role="button"
                         className="flex items-center border-b-2 secondBorderColor w-full">
                         <div className="grid m-4 place-items-center">
@@ -33,9 +41,9 @@ const SideMenubar = () => {
                         </div>
                         <Link to="farmerRegister">Farmer Register</Link>
                     </div>
-                </nav>
+                </nav>}
                 
-                <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
+                { (empData?.role === "Admin" || empData?.role === "Tollfree") && <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
                     <div role="button"
                         className="flex items-center border-b-2 secondBorderColor w-full">
                         <div className="grid m-4 place-items-center">
@@ -44,8 +52,8 @@ const SideMenubar = () => {
                         </div>
                         <Link to="complaintRegister">Complaint Register</Link>
                     </div>
-                </nav>
-                <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
+                </nav>}
+                {(empData?.role === "Admin" || empData?.role === "Service" || empData?.role === "Tollfree") && <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
                     <div role="button"
                         className="flex items-center border-b-2 secondBorderColor w-full">
                         <div className="grid m-4 place-items-center">
@@ -54,8 +62,8 @@ const SideMenubar = () => {
                         </div>
                         <Link to="complaintList">Complaint List</Link>
                     </div>
-                </nav>
-                <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
+                </nav>}
+                {(empData?.role === "Admin" || empData?.role === "Service") && <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
                     <div role="button"
                         className="flex items-center border-b-2 secondBorderColor w-full">
                         <div className="grid m-4 place-items-center">
@@ -64,8 +72,8 @@ const SideMenubar = () => {
                         </div>
                         <Link to="excelUpload">Excel Upload</Link>
                     </div>
-                </nav>
-                <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
+                </nav>}
+                {(empData?.role === "Admin" || empData?.role === "Service") && <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
                     <div role="button"
                         className="flex items-center border-b-2 secondBorderColor w-full">
                         <div className="grid m-4 place-items-center">
@@ -74,7 +82,7 @@ const SideMenubar = () => {
                         </div>
                         <Link to="report">Report</Link>
                     </div>
-                </nav>
+                </nav>}
             </div>
         </>
     )

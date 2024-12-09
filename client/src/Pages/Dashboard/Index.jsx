@@ -12,7 +12,7 @@ const Index = () => {
       const token = getCookie('token');
       if(!token){
         Navigate('/');
-      } 
+      }
     }, []);
   return (
     <>

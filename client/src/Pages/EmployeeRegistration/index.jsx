@@ -1,15 +1,23 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { employeeRegisterApi } from '../../Utils/APIs/employeeRegisterAPI';
+import { showData } from '../../Utils/APIs/commonShowAPI';
+
 
 const Index = () => {
     const [employeeData, setEmployeeData] = useState({});
+    const [ roleList, setRoleList ] = useState([]);
     const [ error, setError ] = useState('');
     const [ isLoading, setIsLoading ] = useState(false);
     const handleOnChange = (e) => {
         const { name, value } = e.target;
         setEmployeeData((prev) => ({ ...prev, [name]: value }))
     }
+
+    useEffect(() => {
+        showData('auth/showRole', setRoleList);
+    }, [])
 
     const handleEmployeeRegisterForm = (e) => {
         e.preventDefault();
@@ -19,7 +27,7 @@ const Index = () => {
                 setError({status: true, msg: 'Employee Registered Successfully'});
             }
             else{
-                setError({status: false, msg: 'Something went Wrong'})
+                setError({status: false, msg: 'Something went Wrong'});
             }
         })
         console.log('form Submitted Succesfully');
@@ -42,9 +50,9 @@ const Index = () => {
                                 onChange={handleOnChange}
                             >
                                 <option value="">-- Select Department --</option>
-                                {['Admin', 'Service', 'Calling', 'TollFree'].map((depar, index) => (
-                                    <option key={index} value={depar}>
-                                        {depar}
+                                {roleList.map(({_id, role}) => (
+                                    <option key={_id} value={role}>
+                                        {role}
                                     </option>
                                 ))}
                             </select>
