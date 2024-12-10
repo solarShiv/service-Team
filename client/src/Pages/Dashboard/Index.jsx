@@ -8,12 +8,12 @@ import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
   const Navigate = useNavigate();
-  useEffect(() => {
-      const token = getCookie('token');
-      if(!token){
-        Navigate('/');
-      } 
-    }, []);
+  // useEffect(() => {
+  //     const token = getCookie('token');
+  //     if(!token){
+  //       Navigate('/');
+  //     } 
+  //   }, []);
   return (
     <>
      <div className="outer h-full overflow-y-hidden" >

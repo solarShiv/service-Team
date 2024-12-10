@@ -4,6 +4,7 @@ const endDateConvertor = require('../../helpers/common/dateConversion/endDate');
 const Complaint = require('../../models/farmer/complaint.model');
 const find = require("../../utils/externalAPI/find");
 const XLSX = require('xlsx');
+const Employee = require("../../models/auth/employee.model");
 const reportDownLoad = async(req,res) =>{
     try {
         const {stageId, assignEmployee, startDate, endDate, specificDate} = req.query || req.body || req.parames;
@@ -147,7 +148,53 @@ const reportDownLoad = async(req,res) =>{
         //     message:'Something is wrong please try again.'
         // })
     }
+};
+
+const showEmployees = async(req, res) => {
+    try {
+        const empData = await Employee.find().select("-password -create_At -created_At -created_By -refreshToken -__v");
+        return res.status(200).json({
+            success: true,
+            message: "Data Fetched Successfully",
+            data: empData || []
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+            error: error.message
+        });
+    }
+};
+
+const deleteEmployee = async(req, res) => {
+    try{
+        const {id} = req.query || req.body || req.parames;
+        if(!id){
+            return res.status(400).json({
+                success: false,
+                message: "EmployeeId is required"
+            });
+        }
+
+        const deleteEmp = await Employee.findByIdAndDelete({_id: id});
+
+        return res.status(200).json({
+            success: true,
+            data: deleteEmp || []
+        });
+    }catch(error){
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+            error: error.message
+        });
+    }
 }
-module.exports ={
-    reportDownLoad
+
+module.exports = {
+    reportDownLoad,
+    showEmployees,
+    deleteEmployee
 }
+

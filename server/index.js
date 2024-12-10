@@ -11,22 +11,23 @@ const farmerRouter = require('./routers/farmer.router');
 require("./configs/db/mongoConn")
 const app = express();
 app.use(cookieParser());
-const allowedOrigins = [
-  'http://88.222.214.93:3001',
-];
+// const allowedOrigins = [
+//   '*',
+// ];
 
-// CORS configuration
-const corsOptions = {
-  origin: function (origin, callback) {
-      if (allowedOrigins.includes(origin) || !origin) {
-          callback(null, true);
-      } else {
-          callback(new Error('Not allowed by CORS'));
-      }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'] // Allow specific HTTP methods
-};
-app.use(cors(corsOptions));
+// // CORS configuration
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//       if (allowedOrigins.includes(origin) || !origin) {
+//           callback(null, true);
+//       } else {
+//           callback(new Error('Not allowed by CORS'));
+//       }
+//   },
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'] // Allow specific HTTP methods
+// };
+// app.use(cors(corsOptions));
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended:true}));
 
