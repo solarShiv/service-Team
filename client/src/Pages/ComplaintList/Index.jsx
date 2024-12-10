@@ -1,7 +1,10 @@
 import React,{ useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import {showData} from '../../Utils/APIs/commonShowAPI'
+import {showData} from '../../Utils/APIs/commonShowAPI';
+import { MdPersonSearch } from "react-icons/md";
+import { GoSearch } from "react-icons/go";
 import { getCookie } from '../../Utils/cookies';
+
 const Index = () => {
     const navigate = useNavigate();
     const Navigate = useNavigate();
@@ -17,21 +20,25 @@ const Index = () => {
     const LIMIT = 13;
     var SrNo = 1;
     const [page, setPage] = useState(1);
-    const filters = `limit=${LIMIT}&page=${page}`
     const [ complaintData, setComplaintData] = useState([]);
     const [complaintId, setComplaintId] = useState();
+    const [ storeSearchedValue, setSearchedValue ] = useState('');
+    const [ searchBtnClicked, setSearchBtnClicked ] = useState(false);
+    const [serachOptionClicked, setSearchOptionClicked ] = useState(false);
+    const filters = `limit=${LIMIT}&page=${page}&saralId=${storeSearchedValue}`;
+
     useEffect(() => {
-        showData(`farmer/showComplaint?${filters}`,setComplaintData)
-    }, [page]);
+        showData(`farmer/showComplaint?${filters}`,setComplaintData);
+    }, [ page, searchBtnClicked ]);
 
     const updateComplaint =(e, id) => {
         setComplaintId(id);
         const complaintId = {id: id};
-        if(empData?.role === "Admin"){
-            console.log("Hello welcome");
-            navigate('/complaintList', { state: complaintId});
-        }
-        else if( empData?.role === "Service"){
+        // if(empData?.role === "Admin"){
+        //     console.log("Hello welcome");
+        //     navigate('/complaintList', { state: complaintId});
+        // }
+        if( empData?.role === "Admin" || empData?.role === "Service"){
             navigate('/dashboard/complaintDetails',{state: complaintId});
         }
         else{
@@ -49,6 +56,13 @@ const Index = () => {
             <div className='overflow-auto h-[calc(100vh-8rem)]'>
             <div className="relative">
                 <table className="  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <div style={{ position: 'fixed', display: 'flex', justifyContent: 'space-between', alignItems: 'center', bottom: 80, zIndex: 100, border: '2px solid rgb(255, 200, 0)', borderRadius: '5px', background: '#fff', padding: '0px 4px' }}>
+                        {serachOptionClicked && <input type="text" name="searchValue" value={storeSearchedValue} onChange={(event) => { console.log(event.target.value);setSearchedValue(event.target.value)}} style={{ outline: 'none',  width: '81.5vw', padding: '8px'   }} autoComplete='off'/>}
+                        {serachOptionClicked && <GoSearch size={25} onClick={() => {setSearchBtnClicked(true); setSearchOptionClicked(false)} }/>}
+                    </div>
+                    {!serachOptionClicked && <div style={{ position: 'fixed', right: 32, bottom: 95 }} onClick={() => setSearchOptionClicked(true)}>
+                        <MdPersonSearch size={50} color='rgb(255, 200, 0)' />
+                    </div>}
                     <thead className="text-xs border border-gray-150 bg-gray-800 text-gray-100 uppercase dark:bg-gray-800 dark:text-gray-400">
                         <tr>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">#</th>
