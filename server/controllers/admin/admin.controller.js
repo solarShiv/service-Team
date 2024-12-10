@@ -192,9 +192,8 @@ const deleteEmployee = async(req, res) => {
     }
 }
 
-module.exports = {
+module.exports ={
     reportDownLoad,
     showEmployees,
     deleteEmployee
 }
-

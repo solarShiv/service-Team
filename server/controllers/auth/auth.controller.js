@@ -4,7 +4,11 @@ const Employee = require('../../models/auth/employee.model');
 const generateAccessToken = require('../../helpers/token/accessToken');
 const generateRefreshToken = require('../../helpers/token/refreshToken');
 const convertToUpperCase = require('../../helpers/common/convertToUpperCase');
+const insertOne = require('../../utils/common/mongoose/insertOne');
+const Role = require("../../models/auth/role.model");
+const find = require('../../utils/common/mongoose/find');
 const register = async(req,res) =>{
+    const empIdz = req.empId;
     try {
         const errors = validationResult(req);
         if(!errors.isEmpty()){
@@ -31,6 +35,7 @@ const register = async(req,res) =>{
             mobile,
             password :hashedPassword,
             role:department,
+            created_By:empIdz
         });
         const savedRegister = await newRegister.save();
         return res.status(200).json({
@@ -113,9 +118,55 @@ const login = async(req,res) =>{
         })
     }
 }
+
+const roleAdd = async(req,res) =>{
+    try {
+        const empId = req.empId;
+        const {role}= req.body;
+        const data = {
+            role,
+            created_By:empId
+        }
+       const responseData = await insertOne(Role,data);
+       if(responseData){
+           return res.status(200).json({
+                success:true,
+                message:'Department added successfully',
+            })
+       } 
+    } catch (error) {
+        console.log("departmentError",error);
+        return res.status(400).json({
+            success:false,
+            message:'something is wrong please connect with developer.'
+        })
+    }
+}
+
+
+const roleShow = async(req,res) =>{
+    try {
+        const select ="role";
+        const responseData = await find(Role, null, select );
+        if(responseData){
+            return res.status(200).json({
+                success:true,
+                message:'All Roles',
+                data:responseData
+            })
+        }
+    } catch (error) {
+        return res.status(400).json({
+            success:false,
+            message:'something is wrong please connect with developer.'
+        })
+    }
+}
 module.exports ={
     register,
     login,
+    roleAdd,
+    roleShow
 }
 
 

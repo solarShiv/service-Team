@@ -4,10 +4,12 @@ import { Disclosure, DisclosureButton, Menu, MenuButton, MenuItem, MenuItems } f
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useAuth } from '../Context/MyContext';
 import galoLogo from '../Assets/Images/galo_solar_logo.png'
+import { getCookie } from '../Utils/cookies';
 
 
 export default function Menubar() {
-    const {empData, logoutAPI} = useAuth();
+    const {logoutAPI} = useAuth();
+    const empData = getCookie('empData');
     console.log(empData);
     const [error, setError ] = useState();
   return (

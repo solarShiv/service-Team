@@ -5,17 +5,17 @@ import { getCookie } from '../../Utils/cookies';
 
 const Login = () => {
   const Navigate = useNavigate();
-  const { setEmpData } = useAuth();
+  const { setEmpData, loginAPI } = useAuth();
   useEffect(() => {
     const token = getCookie('token');
     if(token){
       const getEmpData = getCookie('empData');
+      console.log(getEmpData);
       setEmpData(JSON.parse(getEmpData));
       Navigate('/dashboard');
     } 
   }, []);
-  
-  const {loginAPI} = useAuth();
+
   const [empIdOrMobile, setEmpIdOrMobile] = useState("");
   const [password,setPassword] = useState("");
   const [error, setError] = useState("");
@@ -31,7 +31,7 @@ const Login = () => {
   }
   const handleSubmit = (e) =>{
     e.preventDefault();
-    const loginData ={
+    const loginData = {
       empIdOrMobile,
       password
     };
