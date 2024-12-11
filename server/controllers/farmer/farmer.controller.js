@@ -28,7 +28,7 @@ const addFarmerByExcel = async(req,res) =>{
             block: row['block'] || '',
             gram_Panchayat: row['gram_Panchayat'] || '',
             village: row['village'] || '',
-            pin: parseInt(row['pin'], 10), // Ensure pin is a number
+            pin: parseInt(row['pin'], 10) || 0, 
             address: row['address'] || '',
             installationDate: new Date((row['installationDate'] - 25569) * 86400 * 1000), // Convert to Date
             pump_type: row['pump_type'] || '',
@@ -39,7 +39,9 @@ const addFarmerByExcel = async(req,res) =>{
             Supplier_selection_come_in_office: row['Supplier_selection_come_in_office'] || '',
             HP: row['HP'] || '',
             AC_DC: row['AC_DC'] || '',
-            remark: row['remark'] || ''
+            remark: row['remark'] || '',
+            longitude:row['longitude'] || '',
+            latitude:row['latitude'] || ''
         }));
         const insertResponse = await insertMany(Farmer, farmers);
         if(insertResponse){
@@ -79,12 +81,13 @@ const showFarmer = async(req,res) =>{
         if(responseData.length > 0){
             return res.status(200).json({
                 success:true,
-                message:'Farmer is Exist',
+                message:"Farmer Exist",
                 response:responseData
             })
         }
         return res.status(200).json({
-            success:false,
+            success:true,
+            response: [],
             message:'Farmer is not exist.'
         })
     } catch (error) {

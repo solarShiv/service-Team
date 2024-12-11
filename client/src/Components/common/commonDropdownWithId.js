@@ -15,7 +15,7 @@ const CommonDropdownWithId = ({ Api_path, value, onChange, label }) => {
         onChange={(e) => onChange(e.target.value)}
       >
         <option value="">-- Select {label} --</option>
-        {ListData.length !== 0 && ListData.map(({_id, stage}) =>(
+        {ListData.map(({_id, stage}) =>(
           <option key={_id} value={_id}>
             {stage}
           </option>

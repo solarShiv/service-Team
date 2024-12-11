@@ -79,6 +79,12 @@ const farmerSchema = mongoose.Schema({
     AC_DC:{
         type:String
     },
+    longitude:{
+        type:String
+    },
+    latitude:{
+        type:String
+    },
     remark:{
         type:String
     },

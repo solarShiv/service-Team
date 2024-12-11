@@ -99,6 +99,7 @@ const login = async(req,res) =>{
         delete empData._id;
 
         const option ={
+            maxAge: 32400000,
             httpOnly:true,
             secure:false
         }
@@ -112,7 +113,6 @@ const login = async(req,res) =>{
             token: refreshToken
         })
     } catch (error) {
-        console.log(error)
         return res.status(400).json({
             success:false,
             message:'something is wrong please connect with developer.'

@@ -37,14 +37,16 @@ const Index = () => {
     const isExistSaralId = async() =>{
         await checkSaralIdIsExist(saralId, setFarmerDetails, setFarmerExist, setResponseMessage);
     }
-    const handleAuthorityChange = (authorityName) =>{
+    const handleAuthorityChange = (authorityName) => {
         setAuthority(authorityName)
     }
+
     const handleCompanyChange = (companyName) =>{
         setCompany(companyName);
     }
-    const complaintData ={
-        "farmerId":farmerDetails._id,
+
+    const complaintData = {
+        "farmerId":farmerDetails?._id,
         "complainantName":complainant,
         contact,
         address,
@@ -81,7 +83,7 @@ const Index = () => {
                         <div>
                             {saralId && <button type="button" onClick={isExistSaralId} className="text-white mt-7 bg-yellow-500 ml-6 hover:bg-yellow-400 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center">Find</button>}
                         </div>
-                        <div><h1 className='text-2xl text-red-500 tracking-widest'>{responseMessage}</h1></div>
+                        <div><h1 className='text-2xl tracking-widest ' style={{ color: responseMessage === "Farmer Exist" ? 'rgb(0, 250, 0)' : 'rgb(255, 0, 0)'}}>{responseMessage}</h1></div>
                     </div>
                 {farmerDetails && Object.keys(farmerDetails).length > 0 ? (
                     <table className=' table-fixed bg-white border mx-6 border-gray-300 rounded-lg '>
