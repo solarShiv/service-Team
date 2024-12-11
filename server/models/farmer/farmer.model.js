@@ -11,26 +11,21 @@ const farmerSchema = mongoose.Schema({
     },
     fatherOrHusbandName:{
         type:String,
-        required:true
     },
     contact:{
         type:String,
-        required:true
     },
     state:{
         type:String,
-        required:true
     },
     district:{
         type:String,
     },
     department:{
         type:String,
-        required:true
     },
     product:{
         type:String,
-        required:true
     },
     project:{
         type:String
@@ -46,14 +41,19 @@ const farmerSchema = mongoose.Schema({
     },
     pin:{
         type:Number,
-        required:true
     },
+    longitude:{
+        type:String
+    },
+    latitude:{
+        type:String
+    },
+
     address:{
         type:String
     },
     installationDate:{
-        type:Date,
-        required:true
+        type:String,
     },
     pump_type:{
         type:String
