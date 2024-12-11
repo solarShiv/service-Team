@@ -5,6 +5,7 @@ const {register, login } = require('../helpers/auth/validation');
 const tokenVerify = require('../middlewares/auth/tokenVerify');
 router.post("/register", register, tokenVerify, authController.register);
 router.post("/login", login, authController.login);
+router.get("/logout", tokenVerify, authController.logout);
 router.post("/addRole", tokenVerify, authController.roleAdd);
 router.get("/showRole", authController.roleShow);
 module.exports = router;

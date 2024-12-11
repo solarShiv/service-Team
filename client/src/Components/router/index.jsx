@@ -10,6 +10,7 @@ import ComplaintDetails from '../../Pages/ComplaintDetails/Index.jsx';
 import Report from '../../Pages/Report/index.jsx';
 import VerifyComplaint from '../../Pages/verifyComplaint/Index.jsx';
 import EmployeeRegister from '../../Pages/EmployeeRegistration/index.jsx';
+import ShowFarmerDataDashboard from '../../Pages/FarmerData/index.jsx';
 
 const Index = () => {
   return (
@@ -24,6 +25,7 @@ const Index = () => {
           <Route path="verifyComplaint" element={<VerifyComplaint/>} />
           <Route path="report" element={<Report/>} />
           <Route path="employeeRegister" element={<EmployeeRegister />} />
+          <Route path="ShowFarmerDataDashboard" element={<ShowFarmerDataDashboard />} />
         </Route>
     </Routes>
   );

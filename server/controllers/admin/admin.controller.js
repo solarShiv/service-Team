@@ -4,6 +4,7 @@ const endDateConvertor = require('../../helpers/common/dateConversion/endDate');
 const Complaint = require('../../models/farmer/complaint.model');
 const find = require("../../utils/externalAPI/find");
 const XLSX = require('xlsx');
+const Employee = require("../../models/auth/employee.model");
 const reportDownLoad = async(req,res) =>{
     try {
         const {stageId, assignEmployee, startDate, endDate, specificDate} = req.query || req.body || req.parames;
@@ -147,7 +148,8 @@ const reportDownLoad = async(req,res) =>{
         //     message:'Something is wrong please try again.'
         // })
     }
-}
+};
+
 const showEmployees = async(req, res) => {
     try {
         const empData = await Employee.find().select("-password -create_At -created_At -created_By -refreshToken -__v");
@@ -164,7 +166,7 @@ const showEmployees = async(req, res) => {
         });
     }
 };
-    
+
 const deleteEmployee = async(req, res) => {
     try{
         const {id} = req.query || req.body || req.parames;

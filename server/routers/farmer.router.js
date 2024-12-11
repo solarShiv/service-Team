@@ -11,7 +11,7 @@ router.post("/add", farmerController.addFarmer);
 router.post("/addByExcel",upload.single('file'), farmerController.addFarmerByExcel);
 router.get("/showFarmer", farmerController.showFarmer);
 router.post("/addComplaint", tokenVerify, farmerController.addComplaint);
-router.get("/showComplaint", tokenVerify, farmerController.showComplaint);
+router.get("/showComplaint", farmerController.showComplaint);
 
 
 module.exports = router;

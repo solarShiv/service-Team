@@ -64,11 +64,17 @@ const addFarmerByExcel = async(req,res) =>{
 const showFarmer = async(req,res) =>{
     try {
         const saralId = req.query.saralId || req.params['saralId'];
+        const contact = req.query.contact || req.params['contact'];
+        const page = parseInt(req.query.page);
+        const limit = parseInt(req.query.limit);
+        const skip = (page - 1) * limit;
         console.log(saralId)
         let filters ={};
         if(saralId) filters.saralId = { $regex: saralId, $options: 'i' };
+        if(contact) filters.contact = parseInt(contact);
         const select = " -__v -created_At -updated_At -created_By -updated_By -remark -Supplier_selection_come_in_office";
-        const responseData = await find(Farmer, filters, select);
+        //const responseData = await find(Farmer, filters, select);
+        const responseData = await Farmer.find(filters).select(select).skip(skip).limit(limit); // By Dikshant - Backend Developer
         console.log(responseData)
         if(responseData.length > 0){
             return res.status(200).json({
@@ -184,7 +190,7 @@ const showComplaint = async(req,res) =>{
         } = req.query;
             let filters ={};
             if(saralId){
-                const farmerData = await find(Farmer, {saralId:saralId} , "_id");
+                const farmerData = await find(Farmer, {saralId: saralId} , "_id");
                 filters.farmerId = farmerData[0]?._id;
             }
             if(trackingId) filters.trackingId = trackingId;

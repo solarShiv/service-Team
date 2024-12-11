@@ -6,9 +6,9 @@ import { GiFarmer } from "react-icons/gi";
 import { getCookie } from '../Utils/cookies';
 
 const SideMenubar = () => {
-    const [empData, setEmpData] = useState(JSON.parse(getCookie('empData')));
+    const [empData, setEmpData] = useState(getCookie('empData') ? JSON.parse(getCookie('empData')) : '');
     useEffect(() => {
-        const data = JSON.parse(getCookie('empData'));
+        const data = getCookie('empData') ? JSON.parse(getCookie('empData')) : '';
         setEmpData(data);
         console.log("Data: ",data);
     }, [])
@@ -30,6 +30,16 @@ const SideMenubar = () => {
                             <GiFarmer />
                         </div>
                         <Link to="employeeRegister">Employee Register</Link>
+                    </div>
+                </nav>}
+                { empData?.role === "Admin" && <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
+                    <div role="button"
+                        className="flex items-center border-b-2 secondBorderColor w-full">
+                        <div className="grid m-4 place-items-center">
+                            {/* icon */} 
+                            <GiFarmer />
+                        </div>
+                        <Link to="ShowFarmerDataDashboard">Farmer Data</Link>
                     </div>
                 </nav>}
                 { (empData?.role === "Admin" || empData?.role === "Tollfree") && <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
