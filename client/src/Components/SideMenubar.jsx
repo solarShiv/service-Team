@@ -6,9 +6,9 @@ import { GiFarmer } from "react-icons/gi";
 import { getCookie } from '../Utils/cookies';
 
 const SideMenubar = () => {
-    const [empData, setEmpData] = useState(JSON.parse(getCookie('empData')));
+    const [empData, setEmpData] = useState(getCookie('empData') ? JSON.parse(getCookie('empData')) : '');
     useEffect(() => {
-        const data = JSON.parse(getCookie('empData'));
+        const data = getCookie('empData') ? JSON.parse(getCookie('empData')) : '';
         setEmpData(data);
         console.log("Data: ",data);
     }, [])

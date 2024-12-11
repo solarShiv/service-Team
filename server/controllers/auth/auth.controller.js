@@ -119,7 +119,34 @@ const login = async(req,res) =>{
         })
     }
 }
-
+const logout = async(req,res) =>{
+    try {
+        const empId = req.empId;
+        const responseData = await Employee.findByIdAndUpdate(
+            empId,
+            {$set:{refreshToken:null}},
+            {new:true}
+        )
+        if(responseData){
+            return res.status(200)
+            .clearCookie('accessToken')
+            .clearCookie('refreshToken')
+            .json({
+                success:true,
+                response:"User logout successfully"
+            })
+        }
+        return res.status(400).json({
+            success:false,
+            response:"Something is wrong please try again"
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success:false,
+            message:'something is wrong please connect with developer.'
+        })
+    }
+}
 const roleAdd = async(req,res) =>{
     try {
         const empId = req.empId;
@@ -166,6 +193,7 @@ const roleShow = async(req,res) =>{
 module.exports ={
     register,
     login,
+    logout,
     roleAdd,
     roleShow
 }

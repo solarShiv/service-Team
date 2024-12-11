@@ -38,8 +38,8 @@ export const AuthProvider = ({children}) => {
     }
     const logoutAPI = async(setError) => {
         try{
-            // const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/logout`);
-            // console.log(response.data.success);
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/logout`);
+            console.log(response.data.success);
             removeCookie('token');
             removeCookie('empData');
             Navigate('/');
