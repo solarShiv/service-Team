@@ -28,7 +28,7 @@ const addFarmerByExcel = async(req,res) =>{
             block: row['block'] || '',
             gram_Panchayat: row['gram_Panchayat'] || '',
             village: row['village'] || '',
-            pin: parseInt(row['pin'], 10), // Ensure pin is a number
+            // pin: parseInt(row['pin'], 10) || "", // Ensure pin is a number
             address: row['address'] || '',
             installationDate: new Date((row['installationDate'] - 25569) * 86400 * 1000), // Convert to Date
             pump_type: row['pump_type'] || '',
