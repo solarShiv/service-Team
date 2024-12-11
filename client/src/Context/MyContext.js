@@ -15,7 +15,7 @@ export const AuthProvider = ({children}) => {
       console.log(process.env.REACT_APP_API_URL);
         try {
           console.log(process.env.REACT_APP_API_URL)
-            const response = await axios.post(`http://88.222.214.93:8001/auth/login`, loginData);
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, loginData);
             console.log(response.data);
             const { token } = response.data;
             setCookie('token', token, {expires: 0.5, secure: false });

@@ -72,8 +72,12 @@ const showFarmer = async(req,res) =>{
         const skip = (page - 1) * limit;
         console.log(saralId)
         let filters ={};
-        if(saralId) filters.saralId = { $regex: saralId, $options: 'i' };
-        if(contact) filters.contact = parseInt(contact);
+        if(!isNaN(saralId) ){
+            filters.contact = parseInt(saralId);
+        }else if(saralId!=undefined){
+            filters.saralId = { $regex: saralId, $options: 'i' };
+        }
+
         const select = " -__v -created_At -updated_At -created_By -updated_By -remark -Supplier_selection_come_in_office";
         //const responseData = await find(Farmer, filters, select);
         const responseData = await Farmer.find(filters).select(select).skip(skip).limit(limit); // By Dikshant - Backend Developer
@@ -91,6 +95,7 @@ const showFarmer = async(req,res) =>{
             message:'Farmer is not exist.'
         })
     } catch (error) {
+        console.log(error)
         return res.status(400).json({
             success:false,
             message:'Something is wrong please connect with developer.'
@@ -192,13 +197,20 @@ const showComplaint = async(req,res) =>{
             assignEmployee
         } = req.query;
             let filters ={};
-            if(saralId){
+            // if(saralId){
+            //     const farmerData = await find(Farmer, {saralId: saralId} , "_id");
+            //     filters.farmerId = farmerData[0]?._id;
+            // }
+            if(!isNaN(saralId) && saralId){
+                const farmerData = await find(Farmer, {contact: saralId} , "_id");
+                filters.farmerId = farmerData[0]?._id;
+            }else if(saralId){
                 const farmerData = await find(Farmer, {saralId: saralId} , "_id");
                 filters.farmerId = farmerData[0]?._id;
             }
             if(trackingId) filters.trackingId = trackingId;
             if (complainantName) filters.complainantName = {$regex : complainantName , $options : 'i'}
-            if (contact) filters.contact = contact;
+            // if (contact) filters.contact = contact;
             if (pin) filters.pin = pin;
             if (authority) filters.authority = {$regex : authority, options:'i'}
             if (priority) filters.priority = {$regex : priority, options :'i'}
@@ -224,6 +236,7 @@ const showComplaint = async(req,res) =>{
             const skip = (pages - 1) * limits;
             const skipValue = (typeof skip === 'number' && !isNaN(skip)) ? skip : 0;
             const limitValue = (typeof limits === 'number' && !isNaN(limits)) ? limits : undefined;
+            console.log(filters)
             const complaintDetails = await Complaint.aggregate([
                 {$match : filters},
                 {$sort: { crated_At:-1}},

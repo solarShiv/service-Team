@@ -29,6 +29,7 @@ const Index = () => {
 
     useEffect(() => {
         showData(`farmer/showComplaint?${filters}`,setComplaintData);
+        console.log(storeSearchedValue)
     }, [ page, searchBtnClicked ]);
 
     const updateComplaint =(e, id) => {
@@ -41,7 +42,7 @@ const Index = () => {
         if( empData?.role === "Admin" || empData?.role === "Service"){
             navigate('/dashboard/complaintDetails',{state: complaintId});
         }
-        else{
+        else if(empData?.role ==="Calling"){
             navigate('/dashboard/verifyComplaint',{state: complaintId});
         }
     }

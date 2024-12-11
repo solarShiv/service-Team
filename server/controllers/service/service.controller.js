@@ -31,7 +31,6 @@ const updateComplaint  = async(req,res) =>{
             updated_By:empId,
             updated_At:Date.now()
         }
-        console.log("UD",updateData)
         const insertResponse = await insertOne(StageActivity, data);
         const updateResponse = await update(Complaint, complaintId, updateData);
         console.log(insertResponse , updateResponse)

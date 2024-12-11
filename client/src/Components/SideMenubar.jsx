@@ -10,7 +10,6 @@ const SideMenubar = () => {
     useEffect(() => {
         const data = getCookie('empData') ? JSON.parse(getCookie('empData')) : '';
         setEmpData(data);
-        console.log("Data: ",data);
     }, [])
     console.log(empData);
     return (
@@ -32,7 +31,7 @@ const SideMenubar = () => {
                         <Link to="employeeRegister">Employee Register</Link>
                     </div>
                 </nav>}
-                { empData?.role === "Admin" && <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
+                {<nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
                     <div role="button"
                         className="flex items-center border-b-2 secondBorderColor w-full">
                         <div className="grid m-4 place-items-center">

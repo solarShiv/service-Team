@@ -21,6 +21,7 @@ const Index = () => {
   const [complaintData, setComplaintData] = useState({});
   const [stage, setStage] =useState("");
   const [priority, setPriority] = useState("");
+  const [remark, setRemark] = useState("");
   const [fieldSalesList,setFieldSalesList] = useState([])
   const [selectedEmployee, setSelectedEmployee] = useState("");
   const [updateResponse, setUpdateResponse] = useState("");
@@ -49,7 +50,8 @@ const Index = () => {
       priority:(priority)? priority : complaintData[0]?.priority,
       stageId:(stage) ? stage : complaintData[0]?.Stage[0]?._id,
       complaintId:id,
-      assignEmployee:(selectedEmployee)?selectedEmployee : complaintData[0]?.assignEmployee
+      assignEmployee:(selectedEmployee)?selectedEmployee : complaintData[0]?.assignEmployee,
+      remark:remark,
     }
     console.log("UV", updateValue)
     useEffect(() => {
@@ -224,6 +226,10 @@ const Index = () => {
                     ))}
                   </select>
                 </div>
+                <div>
+                  <label for="message" className="block mt-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">Remark</label>
+                  <textarea id="message" rows="4" value={remark}  onChange={(e) =>setRemark(e.target.value)} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 " placeholder="Write your thoughts here..."></textarea>
+                </div>  
                 <button type="submit" className="text-dark  mt-6 hover:bg-yellow-400 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center firstBgColor">Update</button>
               </>
             </form>
