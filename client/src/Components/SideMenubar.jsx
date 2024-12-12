@@ -18,7 +18,7 @@ const SideMenubar = () => {
                 className="flex h-[calc(100vh-5rem)] flex-col rounded-xl text-gray-700">
                 <div className="p-4 mb-2 firstBgColor">
                     <h5 className="block font-sans text-center text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                        Dashboard
+                    <Link to="dashboard">Dashboard </Link>
                     </h5>
                 </div>
                 { empData?.role === "Admin" && <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">

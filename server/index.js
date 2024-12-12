@@ -9,6 +9,7 @@ const serviceRouter = require('./routers/service.router');
 const commonRouter = require('./routers/common.router');
 const farmerRouter = require('./routers/farmer.router');
 const callingRouter = require('./routers/calling.router');
+const filedServiceRouter = require("./routers/filedService.router.js");
 require("./configs/db/mongoConn")
 const app = express();
 app.use(cookieParser());
@@ -41,6 +42,8 @@ app.use("/warehouse", warehouseRouter);
 app.use("/common", commonRouter);
 app.use("/calling", callingRouter);
 app.use("/farmer", farmerRouter);
+app.use("/filedService", filedServiceRouter);
+
 
 app.get('/', (req, res) => {
     res.send('Hello, Express!');

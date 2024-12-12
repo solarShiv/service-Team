@@ -191,9 +191,52 @@ const deleteEmployee = async(req, res) => {
         });
     }
 }
-
+const countComplaint = async(req,res) =>{
+    try {
+        const now = new Date();
+        const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const result = await Complaint.aggregate([
+            {
+              $facet: {
+                daily: [
+                  { $match: { created_At: { $gte: startOfDay } } },
+                  { $count: "count" },
+                ],
+                weekly: [
+                  { $match: { created_At: { $gte: startOfWeek } } },
+                  { $count: "count" },
+                ],
+                monthly: [
+                  { $match: { created_At: { $gte: startOfMonth } } },
+                  { $count: "count" },
+                ],
+              },
+            },
+            {
+              $project: {
+                daily: { $arrayElemAt: ["$daily.count", 0] },
+                weekly: { $arrayElemAt: ["$weekly.count", 0] },
+                monthly: { $arrayElemAt: ["$monthly.count", 0] },
+              },
+            },
+          ]);
+        return res.status(200).json({
+            success:true,
+            message:result
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({
+            success:false,
+            message:"Something is wrong please connect with developer."
+        })
+    }
+}
 module.exports ={
     reportDownLoad,
     showEmployees,
-    deleteEmployee
+    deleteEmployee,
+    countComplaint
 }

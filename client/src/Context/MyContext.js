@@ -42,7 +42,7 @@ export const AuthProvider = ({children}) => {
             console.log(response.data.success);
             removeCookie('token');
             removeCookie('empData');
-            Navigate('/');
+            Navigate('/login');
             return true;
         }catch(error){
           console.log(error);
