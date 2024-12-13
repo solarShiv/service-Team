@@ -6,6 +6,7 @@ const find = require("../../utils/common/mongoose/find")
 const complaintAccept = async(req,res) =>{
     try {
         // const {complaintAccept} = req.query || req.body || req.parmes; 
+        console.log("CA",req.body.complaintAccept)
         const stageId = (req.body.complaintAccept) ? "675aaf9c44c74418017c1dae" : "675aaf9c44c74418017c1daf";    
         const updateData ={
             stage:stageId,
