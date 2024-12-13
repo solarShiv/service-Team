@@ -11,7 +11,7 @@ const Index = () => {
     useEffect(() => {
         const token = getCookie('token');
         if(!token){
-          Navigate('/');
+          Navigate('/login');
         } 
       }, []);
     
@@ -40,10 +40,10 @@ const Index = () => {
         //     navigate('/complaintList', { state: complaintId});
         // }
         if( empData?.role === "Admin" || empData?.role === "Service"){
-            navigate('/dashboard/complaintDetails',{state: complaintId});
+            navigate('/complaintDetails',{state: complaintId});
         }
         else if(empData?.role ==="Calling"){
-            navigate('/dashboard/verifyComplaint',{state: complaintId});
+            navigate('/verifyComplaint',{state: complaintId});
         }
     }
     return (

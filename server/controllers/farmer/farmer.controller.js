@@ -319,13 +319,55 @@ const showComplaint = async(req,res) =>{
         })
     }
 }
-
+const addComplaintByExcel = async(req,res) =>{
+    try {
+        const empId = req.empId;
+        const JSON_Data = await excelToJSON(req.file.buffer);
+        var complaintData =[];
+        // for(let i=0; i<JSON_Data.length;  ++i){
+        //     // 
+        //     let contact = JSON_Data[i].farmerNumber;
+        //     const responseFarmer = await find(Farmer, {contact},"_id");
+        //     const farmerId = responseFarmer[i]?._id;
+            // if(farmerId){
+            //     console.log(responseFarmer);
+            // }
+        //     const temp = {
+        //         farmerId,
+        //         trackingId:JSON_Data[i].trackingId,
+        //         complainantName:JSON_Data[i].complainantName,
+        //         contact:JSON_Data[i].contact,
+        //         pin:JSON_Data[i].pin,
+        //         authority:JSON_Data[i].authority,
+        //         priority:JSON_Data[i].priority,
+        //         company:JSON_Data[i].company,
+        //         complaintDetails:JSON_Data[i].complaintDetails,
+        //         created_At:new Date((JSON_Data[i].created_At - 25569) * 86400 * 1000), // convert number to date format,
+        //         created_By:empId
+        //     }
+        //     complaintData.push(temp);
+        // }
+        // // console.log(complaintData);
+        // const complaintResponse = await insertMany(Complaint, complaintData);
+        // return res.status(200).json({
+        //     success:true,
+        //     message:complaintResponse
+        // })
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({
+            success:false,
+            message:'Something is wrong please connect with developer.'
+        })
+    }
+}
 module.exports = {
     addFarmerByExcel,
     addFarmer,
     showFarmer,
     addComplaint,
-    showComplaint
+    showComplaint,
+    addComplaintByExcel
 }
 
 // const  = async(req,res) =>{
