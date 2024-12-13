@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FaRegRegistered } from "react-icons/fa";
+import { FaFileUpload } from "react-icons/fa";
 import { FaFilePen } from "react-icons/fa6";
 import { GiFarmer } from "react-icons/gi";
 import { getCookie } from '../Utils/cookies';
@@ -26,7 +28,7 @@ const SideMenubar = () => {
                         className="flex items-center border-b-2 secondBorderColor w-full">
                         <div className="grid m-4 place-items-center">
                             {/* icon */} 
-                            <GiFarmer />
+                            <FaRegRegistered />
                         </div>
                         <Link to="employeeRegister">Employee Register</Link>
                     </div>
@@ -77,7 +79,7 @@ const SideMenubar = () => {
                         className="flex items-center border-b-2 secondBorderColor w-full">
                         <div className="grid m-4 place-items-center">
                             {/* icon */} 
-                            <FaFilePen  className='text-dark'/>
+                            <FaFileUpload  className='text-dark'/>
                         </div>
                         <Link to="excelUpload">Excel Upload</Link>
                     </div>

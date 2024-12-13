@@ -46,8 +46,8 @@ const Index = () => {
     }
 
     const complaintData = {
-        "farmerId":farmerDetails?._id,
-        "complainantName":complainant,
+        "farmerId": farmerDetails?._id,
+        "complainantName": complainant,
         contact,
         address,
         "pin":pinCode,
@@ -56,7 +56,7 @@ const Index = () => {
         company,
         complaintDetails
     }
-    const handleComplaintForm = async(e) =>{
+    const handleComplaintForm = (e) => {
         e.preventDefault();
         (complainant === "") ? setComplainantError(true) : setComplainantError(false);
         (contact.length < 10 ) ? setContactError(true) : setContactError(false);
@@ -66,7 +66,14 @@ const Index = () => {
         (complaintDetails === "") ? setComplaintError(true) : setComplaintError(false);
         const path = 'farmer/addComplaint';
         if(!complainantError && !contactError && !authorityError && !priorityError && !companyError && !complaintError){
-            await insertData(path, setResponseData, complaintData);
+            insertData(path, setResponseData, complaintData).then((status) => {
+              if(status){
+                setFarmerDetails({});
+                setContact('');
+                setAddress('');
+                setPinCode('');
+              }  
+            });
         }
     }
     return (
