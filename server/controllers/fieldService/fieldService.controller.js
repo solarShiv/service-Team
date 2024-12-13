@@ -1,4 +1,4 @@
-const fieldStageAcitivy = require('../../models/fieldService/fieldStageAcitivy.model');
+const fieldStageAcitivy = require('../../models/fieldService/fieldStageActivity.model');
 const Complaint = require('../../models/farmer/complaint.model');
 const insertOne = require('../../utils/common/mongoose/insertOne')
 const update = require("../../utils/common/mongoose/update");

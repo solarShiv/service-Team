@@ -27,5 +27,5 @@ const fieldStageActivitySchema = mongoose.Schema({
         default:Date.now
     }
 });
-const FieldStageActivity = mongoose.model("FiledStageActivity", fieldStageActivitySchema);
+const FieldStageActivity = mongoose.model("FieldStageActivity", fieldStageActivitySchema);
 module.exports = FieldStageActivity;
