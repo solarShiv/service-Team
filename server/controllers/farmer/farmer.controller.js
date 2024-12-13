@@ -257,10 +257,10 @@ const showComplaint = async(req,res) =>{
                 },
                 {
                     $lookup:{
-                        from:'fieldStageActivitys',
+                        from:'fieldstageactivities',
                         localField:'_id',
                         foreignField:'complaintId',
-                        as:'Complaint Accept'
+                        as:'ComplaintAccept'
                     }
                 },
                 {
@@ -305,6 +305,14 @@ const showComplaint = async(req,res) =>{
                             create_At:0,
                             empId:0,
                             mobile:0
+                        },
+                        ComplaintAccept:{
+                            _id:0,
+                            complaintId:0,
+                            stageId:0,
+                            fieldEmpId:0,
+                            created_At:0,
+                            __v:0,
                         }
                     }
                 },
