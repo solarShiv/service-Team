@@ -9,7 +9,7 @@ import { getCookie } from '../Utils/cookies';
 
 export default function Menubar() {
     const {logoutAPI} = useAuth();
-    const empData = getCookie('empData');
+    const empData = getCookie('empData') ? JSON.parse(getCookie('empData')) : {};
     console.log(empData);
     const [error, setError ] = useState();
   return (
