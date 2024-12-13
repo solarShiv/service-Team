@@ -6,7 +6,6 @@ import { GoSearch } from "react-icons/go";
 import { getCookie } from '../../Utils/cookies';
 
 const Index = () => {
-    const navigate = useNavigate();
     const Navigate = useNavigate();
     useEffect(() => {
         const token = getCookie('token');
@@ -17,7 +16,7 @@ const Index = () => {
     
     const empData = JSON.parse(getCookie('empData'));
     console.log(empData);
-    const LIMIT = 13;
+    const LIMIT = 50;
     var SrNo = 1;
     const [page, setPage] = useState(1);
     const [ complaintData, setComplaintData] = useState([]);
@@ -40,10 +39,10 @@ const Index = () => {
         //     navigate('/complaintList', { state: complaintId});
         // }
         if( empData?.role === "Admin" || empData?.role === "Service"){
-            navigate('/complaintDetails',{state: complaintId});
+            Navigate('/complaintDetails',{state: complaintId});
         }
         else if(empData?.role ==="Calling"){
-            navigate('/verifyComplaint',{state: complaintId});
+            Navigate('/verifyComplaint',{state: complaintId});
         }
     }
     return (
@@ -56,16 +55,18 @@ const Index = () => {
             </button>
             <div className='overflow-auto h-[calc(100vh-8rem)]'>
             <div className="relative">
-                <table className="  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <table className="relative text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <div style={{ position: 'fixed', display: 'flex', justifyContent: 'space-between', alignItems: 'center', bottom: 80, zIndex: 100, border: '2px solid rgb(255, 200, 0)', borderRadius: '5px', background: '#fff', padding: '0px 4px' }}>
                         {serachOptionClicked && <input type="text" name="searchValue" value={storeSearchedValue} onChange={(event) => { console.log(event.target.value);setSearchedValue(event.target.value)}} style={{ outline: 'none',  width: '81.5vw', padding: '8px'   }} autoComplete='off'/>}
                         {serachOptionClicked && <GoSearch size={25} onClick={() => {setSearchBtnClicked(true); setSearchOptionClicked(false)} }/>}
                     </div>
                     {!serachOptionClicked && <div style={{ position: 'fixed', right: 32, bottom: 95 }} onClick={() => setSearchOptionClicked(true)}>
-                        <MdPersonSearch size={50} color='rgb(255, 200, 0)' />
+                        <MdPersonSearch 
+                            size={50} 
+                            color='rgb(255, 200, 0)' 
+                        />
                     </div>}
-                    <thead className="text-xs border border-gray-150 bg-gray-800 text-gray-100 uppercase dark:bg-gray-800 dark:text-gray-400">
-                        <tr>
+                        <thead className="text-xs border border-gray-150 bg-gray-800 text-gray-100 uppercase dark:bg-gray-800 dark:text-gray-400">
                             <th scope="col" className="px-6 py-3 text-center font-semibold">#</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Tracking Id</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Complainant Name</th>
@@ -79,12 +80,14 @@ const Index = () => {
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Contact</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">State</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">District</th>
+                            <th scope="col" className="px-6 py-3 text-center font-semibold">Village</th>
+                            <th scope="col" className="px-6 py-3 text-center font-semibold">Longitude</th>
+                            <th scope="col" className="px-6 py-3 text-center font-semibold">Latitude</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Pin Code</th>
-                            <th scope="col" className="px-6 py-3 text-center font-semibold">HP</th>
+                            <th scope="col" className="px-6 py-3 text-center font-semibold">Product</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Stage</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Employee</th>
-                        </tr>
-                    </thead>
+                        </thead>
                     <tbody>
                     {
                         complaintData.map((data , index) =>(
@@ -97,10 +100,10 @@ const Index = () => {
                                         {data.trackingId}
                                     </th>
                                     <td className="px-2 text-center">
-                                        {data.ComplainantName}
+                                        {data.complainantName}
                                     </td>
                                     <td className="px-2 text-center">
-                                        {data.contact}
+                                        {data.contact || 'N/A'}
                                     </td>
                                     <td className="px-2  text-center">
                                         {data.authority}
@@ -132,9 +135,18 @@ const Index = () => {
                                         {data?.Farmer[0]?.district}
                                     </td>
                                     <td className="px-2 text-center">
-                                        {data?.Farmer[0]?.pin}
+                                        {data?.Farmer[0]?.village}
+                                    </td>
+                                    <td className="px-2 text-center">
+                                        {data?.Farmer[0]?.longitude || 'N/A'}
+                                    </td>
+                                    <td className="px-2 text-center">
+                                        {data?.Farmer[0]?.latitude || 'N/A'}
+                                    </td>
+                                    <td className="px-2 text-center">
+                                        {data?.Farmer[0]?.pin || 'N/A'}
                                     </td><td className="px-2 text-center">
-                                        {data?.Farmer[0]?.HP}
+                                        {data?.Farmer[0]?.HP + 'HP ' +data?.Farmer[0]?.AC_DC}
                                     </td>
 
                                     <td className="px-2">

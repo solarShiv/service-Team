@@ -75,12 +75,9 @@ const Index = () => {
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Department</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Installer Name</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Product</th>
-                            <th scope="col" className="px-6 py-3 text-center font-semibold">Project</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Pump Type</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Survey Status</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Survey Date</th>
-                            <th scope="col" className="px-6 py-3 text-center font-semibold">HP</th>
-                            <th scope="col" className="px-6 py-3 text-center font-semibold">AC_DC</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -134,11 +131,7 @@ const Index = () => {
                                     <td className="px-2 text-center">
                                         {installer_name || 'N/A'}
                                     </td><td className="px-2 text-center">
-                                        {product || 'N/A'}
-                                    </td>
-
-                                    <td className="px-2 text-center">
-                                        {project || 'N/A'}
+                                        {HP + 'HP ' + AC_DC || 'N/A'}
                                     </td>
                                     <td className="px-2 text-center">
                                         {pump_type || 'N/A'}
@@ -148,12 +141,6 @@ const Index = () => {
                                     </td>
                                     <td className="px-2 text-center">
                                         {survey_done_date || 'N/A'}
-                                    </td>
-                                    <td className="px-2 text-center">
-                                        {HP}
-                                    </td>
-                                    <td className="px-2 text-center">
-                                        {AC_DC}
                                     </td>
                                 </tr>
                             </>

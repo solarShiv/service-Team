@@ -84,7 +84,7 @@ const SideMenubar = () => {
                         <Link to="excelUpload">Excel Upload</Link>
                     </div>
                 </nav>}
-                {(empData?.role === "Admin" || empData?.role === "Service") && <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
+                {(empData?.role === "Admin" || empData?.role === "Service" || empData?.role === "Tollfree" ) && <nav className="flex flex-col gap-1 font-sans text-base font-normal text-blue-gray-700">
                     <div role="button"
                         className="flex items-center border-b-2 secondBorderColor w-full">
                         <div className="grid m-4 place-items-center">
