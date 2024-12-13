@@ -7,7 +7,7 @@ const compliantSchema = mongoose.Schema({
     },
     trackingId:{
         type:String,
-        required:true
+        // required:true
     },
     complainantName:{
         type:String,
@@ -15,7 +15,7 @@ const compliantSchema = mongoose.Schema({
     },
     contact:{
         type:String,
-        required:true
+        // required:true
     },
     address:{
         type:String

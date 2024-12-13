@@ -9,7 +9,7 @@ const serviceRouter = require('./routers/service.router');
 const commonRouter = require('./routers/common.router');
 const farmerRouter = require('./routers/farmer.router');
 const callingRouter = require('./routers/calling.router');
-const filedServiceRouter = require("./routers/filedService.router.js");
+const filedServiceRouter = require("./routers/filedService.router");
 require("./configs/db/mongoConn")
 const app = express();
 app.use(cookieParser());
