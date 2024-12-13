@@ -11,7 +11,7 @@ const Index = () => {
     useEffect(() => {
         const token = getCookie('token');
         if(!token){
-          Navigate('/');
+          Navigate('/login');
         } 
       }, []);
     const [farmerDetails, setFarmerDetails] = useState({});
@@ -65,13 +65,15 @@ const Index = () => {
         (company === "") ? setCompanyError(true) : setCompanyError(false);
         (complaintDetails === "") ? setComplaintError(true) : setComplaintError(false);
         const path = 'farmer/addComplaint';
-        if(!complainantError && !contactError && !authorityError && !priorityError && !companyError && !complaintError){
+        if(complainant && contact && authority && priority && company && complaintDetails){
             insertData(path, setResponseData, complaintData).then((status) => {
               if(status){
-                setFarmerDetails({});
                 setContact('');
                 setAddress('');
                 setPinCode('');
+                setAuthority('');
+                setComplaintDetails('');
+                setComplainant('');
               }  
             });
         }
@@ -84,8 +86,8 @@ const Index = () => {
                 </div>
                     <div className="grid gap-3 m-6 md:grid-cols-4">
                         <div>
-                            <label for="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Saral ID<span className='text-red-500 fixed h-3'>*</span></label>
-                            <input type="text" id="first_name" onChange={(e) => { setSaralId(e.target.value) }} value={saralId} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm block w-full p-2.5" placeholder="Saral Id" required />
+                            <label for="saral_id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Saral ID<span className='text-red-500 fixed h-3'>*</span></label>
+                            <input type="text" id="saral_id" onChange={(e) => { setSaralId(e.target.value) }} value={saralId} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm block w-full p-2.5" placeholder="Saral Id" required />
                         </div>
                         <div>
                             {saralId && <button type="button" onClick={isExistSaralId} className="text-white mt-7 bg-yellow-500 ml-6 hover:bg-yellow-400 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center">Find</button>}
@@ -98,8 +100,8 @@ const Index = () => {
                         <tr className='bg-gray-100 border-b hover:bg-gray-300'><th className='text-left pl-6 text-gray-700 font-semibold'>Farmer:</th> <td className='text-gray-700'>{farmerDetails.farmerName}</td> <th className='text-left pl-6 text-gray-600 font-semibold'>District :</th><td className='text-gray-700'>{farmerDetails.district}</td></tr>
                         <tr className='bg-gray-100 border-b hover:bg-gray-300'><th className='text-left pl-6 text-gray-700 font-semibold'>Contact_No. </th> <td className='text-gray-700'>{farmerDetails.contact}</td><th className='text-left pl-6 text-gray-600 font-semibold'>Installation Date :</th><td className='text-gray-700'>{farmerDetails.installationDate}</td></tr>
                         <tr className='bg-gray-100 border-b hover:bg-gray-300'><th className='text-left pl-6 text-gray-700 font-semibold'>State :</th><td className='text-gray-700'>{farmerDetails.state}</td><th className='text-left pl-6 text-gray-600 font-semibold'>Department :</th><td className='text-gray-700'>{farmerDetails.department}</td></tr>
-                        <tr className='bg-gray-100 border-b hover:bg-gray-300'><th className='text-left pl-6 text-gray-700 font-semibold'>District :</th><td className='text-gray-700'>{farmerDetails.district}</td><th className='text-left pl-6 text-gray-600 font-semibold'>Product :</th><td className='text-gray-700'>{farmerDetails.product}</td></tr>
-                        <tr className='bg-gray-100 border-b hover:bg-gray-300'><th className='text-left pl-6 text-gray-700 font-semibold'>Block :</th><td className='text-gray-700'>{farmerDetails.block}</td><th className='text-left pl-6 text-gray-600 font-semibold'>Project :</th><td className='text-gray-700'>{farmerDetails.project}</td></tr>
+                        <tr className='bg-gray-100 border-b hover:bg-gray-300'><th className='text-left pl-6 text-gray-700 font-semibold'>District :</th><td className='text-gray-700'>{farmerDetails.district}</td><th className='text-left pl-6 text-gray-600 font-semibold'>Product :</th><td className='text-gray-700'>{farmerDetails.HP + 'HP ' + farmerDetails.AC_DC}</td></tr>
+                        <tr className='bg-gray-100 border-b hover:bg-gray-300'><th className='text-left pl-6 text-gray-700 font-semibold'>Block :</th><td className='text-gray-700'>{farmerDetails.block}</td><th className='text-left pl-6 text-gray-600 font-semibold'>Village :</th><td className='text-gray-700'>{farmerDetails.village}</td></tr>
                     </table>
                 ) : ''}
                     <form onSubmit={handleComplaintForm}>
@@ -110,26 +112,26 @@ const Index = () => {
                             {complainantError && <span className='text-red-500 text-xs ml-2'>Complainant Name are required.</span>}
                         </div>
                         <div>
-                            <label for="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact Number<span className='text-red-500 fixed h-3'>*</span></label>
-                            <input type="number" id="first_name" value={contact} onChange={(e) => { setContact(e.target.value)}}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm block w-full p-2.5" placeholder="Contact Number" />
+                            <label for="contact" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact Number<span className='text-red-500 fixed h-3'>*</span></label>
+                            <input type="number" id="contact" value={contact} onChange={(e) => { setContact(e.target.value)}}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm block w-full p-2.5" placeholder="Contact Number" />
                             {contactError && <span className='text-red-500 text-xs ml-2'>Contact number are most be 10 digits required.</span>}
                         </div>
                         <div>
-                            <label for="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address (If change)</label>
-                            <input type="text" id="first_name" value={address} onChange={(e) => {setAddress(e.target.value)}}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm block w-full p-2.5" placeholder="Address" />
+                            <label for="address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address (If change)</label>
+                            <input type="text" id="address" value={address} onChange={(e) => {setAddress(e.target.value)}}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm block w-full p-2.5" placeholder="Address" />
                         </div>
                         <div>
-                            <label for="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PIN CODE</label>
-                            <input type="text" id="first_name" value={pinCode} onChange={(e) => { setPinCode(e.target.value) }}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm block w-full p-2.5" placeholder="Pin code" />
+                            <label for="pin" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PIN CODE</label>
+                            <input type="text" id="pin" value={pinCode} onChange={(e) => { setPinCode(e.target.value) }}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm block w-full p-2.5" placeholder="Pin code" />
                         </div>
                         <div>
-                            <label for="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">AUTHORITY<span className='text-red-500 fixed h-3'>*</span></label>
+                            <label for="authority" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">AUTHORITY<span className='text-red-500 fixed h-3'>*</span></label>
                             <CommonDropdown Api_path={"common/showAuthority"} value={authority} onChange={handleAuthorityChange} label={"Authority"} />
                             {authorityError && <span className='text-red-500 text-xs ml-2'>Select any one Authority.</span>}
 
                         </div>
                         <div>
-                            <label for="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PRIORITY<span className='text-red-500 fixed h-3'>*</span></label>
+                            <label for="priority" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PRIORITY<span className='text-red-500 fixed h-3'>*</span></label>
                             <select onChange={(e) =>{setPriority(e.target.value)}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " id="state-select">
                                 <option value="">-- select Priority --</option>
                                 <option key={1} value="Normal">Normal</option>
@@ -139,21 +141,22 @@ const Index = () => {
                             {priorityError && <span className='text-red-500 text-xs ml-2'>Select Priority</span>}
                         </div>
                         <div>
-                            <label for="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose Company Name<span className='text-red-500 fixed h-3'>*</span></label>
+                            <label for="company" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose Company Name<span className='text-red-500 fixed h-3'>*</span></label>
                             <CommonDropdown Api_path={"common/showCompany"} value={company} onChange={handleCompanyChange} label={"Company"} />
                             {companyError && <span className='text-red-500 text-xs ml-2'>Select Company</span>}
                         </div>
                         <div>
-                            <label for="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Complaint Details<span className='text-red-500 fixed h-3'>*</span></label>
+                            <label for="details" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Complaint Details<span className='text-red-500 fixed h-3'>*</span></label>
                             <input type="text" id="first_name" value={complaintDetails} onChange={(e) => { setComplaintDetails(e.target.value) }}  className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm block w-full p-2.5" placeholder="Complaint Details" />
                             {complaintError && <span className='text-red-500 text-xs ml-2'>Write Complaint details.</span>}
                         </div>
-                        <div>
-                            {farmerExist && <button type="Submit" className="text-white mt-2 bg-yellow-500 hover:bg-yellow-400 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>}
-                        </div>
                     </div>
+                    <div className='px-6 flex justify-between items-center gap-4' style={{ marginTop: -20}} >
+                            {farmerExist && <button type="Submit" className="text-white mt-2 bg-yellow-500 hover:bg-yellow-400 font-medium rounded-sm text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>}
+                            <p style={{ width: '100%', color: 'rgba(0, 200, 0, 1)'}}>{responseData}</p>
+                        </div>
                     </form>
-                    {responseData}
+
             </div>
         </>
     )

@@ -79,8 +79,11 @@ const Index = () => {
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Contact</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">State</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">District</th>
+                            <th scope="col" className="px-6 py-3 text-center font-semibold">Village</th>
+                            <th scope="col" className="px-6 py-3 text-center font-semibold">Longitude</th>
+                            <th scope="col" className="px-6 py-3 text-center font-semibold">Latitude</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Pin Code</th>
-                            <th scope="col" className="px-6 py-3 text-center font-semibold">HP</th>
+                            <th scope="col" className="px-6 py-3 text-center font-semibold">Product</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Stage</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Employee</th>
                         </tr>
@@ -97,7 +100,7 @@ const Index = () => {
                                         {data.trackingId}
                                     </th>
                                     <td className="px-2 text-center">
-                                        {data.ComplainantName}
+                                        {data.complainantName}
                                     </td>
                                     <td className="px-2 text-center">
                                         {data.contact}
@@ -132,9 +135,18 @@ const Index = () => {
                                         {data?.Farmer[0]?.district}
                                     </td>
                                     <td className="px-2 text-center">
-                                        {data?.Farmer[0]?.pin}
+                                        {data?.Farmer[0]?.village}
+                                    </td>
+                                    <td className="px-2 text-center">
+                                        {data?.Farmer[0]?.longitude}
+                                    </td>
+                                    <td className="px-2 text-center">
+                                        {data?.Farmer[0]?.latitude}
+                                    </td>
+                                    <td className="px-2 text-center">
+                                        {data?.Farmer[0]?.pin || 'N/A'}
                                     </td><td className="px-2 text-center">
-                                        {data?.Farmer[0]?.HP}
+                                        {data?.Farmer[0]?.HP + 'HP ' +data?.Farmer[0]?.AC_DC}
                                     </td>
 
                                     <td className="px-2">
