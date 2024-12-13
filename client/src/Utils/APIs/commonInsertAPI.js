@@ -5,7 +5,9 @@ export const insertData = async(path, setResponse, data) =>{
         const listDate = await axios.post(`${process.env.REACT_APP_API_URL}/${path}`, data);
         console.log(listDate.data)
         setResponse(listDate.data.message);
+        return true;
     } catch (error) {
         console.log(error);
+        return false;
     }
 }
