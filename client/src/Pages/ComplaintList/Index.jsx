@@ -6,7 +6,6 @@ import { GoSearch } from "react-icons/go";
 import { getCookie } from '../../Utils/cookies';
 
 const Index = () => {
-    const navigate = useNavigate();
     const Navigate = useNavigate();
     useEffect(() => {
         const token = getCookie('token');
@@ -40,10 +39,10 @@ const Index = () => {
         //     navigate('/complaintList', { state: complaintId});
         // }
         if( empData?.role === "Admin" || empData?.role === "Service"){
-            navigate('/complaintDetails',{state: complaintId});
+            Navigate('/complaintDetails',{state: complaintId});
         }
         else if(empData?.role ==="Calling"){
-            navigate('/verifyComplaint',{state: complaintId});
+            Navigate('/verifyComplaint',{state: complaintId});
         }
     }
     return (
