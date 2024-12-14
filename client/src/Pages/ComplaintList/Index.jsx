@@ -45,6 +45,12 @@ const Index = () => {
             Navigate('/verifyComplaint',{state: complaintId});
         }
     }
+
+    const formatDate = (date) => {
+        const store = new Date(date);
+        return store.getDate() + '/' + (store.getMonth()+1) + '/' + store.getFullYear();
+    }
+
     return (
         <>
             <button className='p-1 pl-5 pr-5 rounded-md absolute bottom-4 left-64 text-white bg-gray-800' onClick={()=>{setPage(page-1)}}>
@@ -69,6 +75,7 @@ const Index = () => {
                         <thead className="text-xs border border-gray-150 bg-gray-800 text-gray-100 uppercase dark:bg-gray-800 dark:text-gray-400">
                             <th scope="col" className="px-6 py-3 text-center font-semibold">#</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Tracking Id</th>
+                            <th scope="col" className="px-6 py-3 text-center font-semibold">Date</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Complainant Name</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Complainant Contact</th>
                             <th scope="col" className="px-6 py-3 text-center font-semibold">Authority</th>
@@ -98,6 +105,9 @@ const Index = () => {
                                     </th>
                                     <th scope="row" className="px-2 font-medium text-center text-gray-900 whitespace-nowrap ">
                                         {data.trackingId}
+                                    </th>
+                                    <th scope="row" className="px-2 font-medium text-center text-gray-900 whitespace-nowrap ">
+                                        {formatDate(data.created_At)}
                                     </th>
                                     <td className="px-2 text-center">
                                         {data.complainantName}
