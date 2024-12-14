@@ -70,7 +70,6 @@ const login = async(req,res) =>{
         }
         const empIdOrMobile = req.body.empIdOrMobile;
         let empData = await Employee.findOne({$or:[{empId:empIdOrMobile},{mobile:empIdOrMobile}]}).lean();
-        console.log(empData);
         if(!empData){
             return res.status(400).json({
                 success:false,
